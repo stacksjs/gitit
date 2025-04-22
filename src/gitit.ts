@@ -1,4 +1,3 @@
-import type { ParsedTarFileItem } from 'nanotar'
 import type { DownloadTemplateOptions, DownloadTemplateResult, ExtractOptions as GitItExtractOptions, Hooks, InstallOptions, TemplateProvider } from './types'
 import { spawn } from 'node:child_process'
 import { existsSync, readdirSync } from 'node:fs'
