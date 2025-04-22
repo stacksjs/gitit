@@ -13,5 +13,6 @@ docs/.vitepress/cache
 /test/.tmp
 bin/gitit
 bin/gitit*
+/my-project
 /my-stack
 /stack-example

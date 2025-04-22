@@ -1,10 +1,13 @@
+import type { ParsedTarFileItem } from 'nanotar'
 import type { DownloadTemplateOptions, DownloadTemplateResult, ExtractOptions as GitItExtractOptions, Hooks, InstallOptions, TemplateProvider } from './types'
 import { spawn } from 'node:child_process'
 import { existsSync, readdirSync } from 'node:fs'
-import { mkdir, rm } from 'node:fs/promises'
-import { dirname, resolve } from 'node:path'
+import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
+import { dirname, join, resolve } from 'node:path'
 import process from 'node:process'
+import { gunzipSync } from 'node:zlib'
 import defu from 'defu'
+import { parseTar } from 'nanotar'
 import { providers } from './providers'
 import { registryProvider } from './registry'
 import { cacheDirectory, debug, download, normalizeHeaders } from './utils'
@@ -58,34 +61,91 @@ async function installDependencies(options: InstallOptions): Promise<void> {
 }
 
 /**
- * Extract a tarball using the native tar command
+ * Extract a tarball using nanotar (cross-platform)
  */
 async function extractTar(options: GitItExtractOptions): Promise<void> {
-  const { file, cwd } = options
+  const { file, cwd, onentry } = options
 
   debug(`Extracting tarball ${file} to ${cwd}`)
 
-  // Simple case: extract all files from tarball to cwd
-  return new Promise<void>((resolve, reject) => {
-    // Use --strip-components=1 to remove the first directory level (e.g., stacks-main/)
-    const child = spawn('tar', ['-xzf', file, '--strip-components=1', '-C', cwd], {
-      stdio: 'inherit',
-    })
+  try {
+    // Read the tar file
+    const tarData = await readFile(file)
 
-    child.on('close', (code) => {
-      if (code === 0) {
-        debug(`Extracted tarball ${file} to ${cwd}`)
-        resolve()
+    // Determine if it's gzipped
+    const isGzipped = file.endsWith('.gz') || file.endsWith('.tgz')
+
+    // Process the tar data
+    let tarBuffer: Uint8Array
+    if (isGzipped) {
+      debug('Decompressing gzipped tarball using zlib')
+      tarBuffer = gunzipSync(tarData)
+    }
+    else {
+      tarBuffer = tarData
+    }
+
+    // Parse the tar file
+    const entries = parseTar(tarBuffer)
+    debug(`Parsed ${entries.length} entries from tarball`)
+
+    // Identify the root directory to strip
+    let rootDir: string | null = null
+    for (const entry of entries) {
+      if (entry.type === 'directory' && !rootDir && entry.name.indexOf('/') === entry.name.length - 1) {
+        rootDir = entry.name.slice(0, -1) // Remove trailing slash
+        debug(`Identified root directory to strip: ${rootDir}`)
+        break
+      }
+    }
+
+    // Process entries
+    for (const entry of entries) {
+      let targetPath = entry.name
+
+      // Apply onentry function if provided (for custom subdir handling)
+      if (typeof onentry === 'function') {
+        const entryForHook = { path: targetPath }
+        onentry(entryForHook)
+        targetPath = entryForHook.path
+
+        // Skip entries filtered out by onentry
+        if (!targetPath) {
+          debug(`Skipping ${entry.name} (filtered by onentry)`)
+          continue
+        }
+      }
+      // Default behavior: strip root directory (equivalent to tar --strip-components=1)
+      else if (rootDir && targetPath.startsWith(`${rootDir}/`)) {
+        targetPath = targetPath.slice(rootDir.length + 1)
+        if (!targetPath) {
+          debug(`Skipping ${entry.name} (root directory)`)
+          continue
+        }
+      }
+
+      const fullPath = join(cwd, targetPath)
+
+      if (entry.type === 'directory') {
+        debug(`Creating directory: ${fullPath}`)
+        await mkdir(fullPath, { recursive: true })
+      }
+      else if (entry.type === 'file' && entry.data) {
+        debug(`Writing file: ${fullPath} (${entry.size} bytes)`)
+        // Ensure parent directory exists
+        await mkdir(dirname(fullPath), { recursive: true })
+        await writeFile(fullPath, entry.data)
       }
       else {
-        reject(new Error(`tar -xzf exited with code ${code}`))
+        debug(`Skipping unsupported entry type: ${entry.type} for ${entry.name}`)
       }
-    })
+    }
 
-    child.on('error', (err) => {
-      reject(new Error(`Failed to run tar: ${err.message}`))
-    })
-  })
+    debug(`Successfully extracted ${entries.length} entries to ${cwd}`)
+  }
+  catch (error) {
+    throw new Error(`Failed to extract tarball: ${error instanceof Error ? error.message : String(error)}`)
+  }
 }
 
 /**
