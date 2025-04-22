@@ -1,4 +1,16 @@
 
+## v0.2.0...main
+
+[compare changes](https://github.com/stacksjs/gitit/compare/v0.2.0...main)
+
+### 🏡 Chore
+
+- Do not split build ([35bf261](https://github.com/stacksjs/gitit/commit/35bf261))
+
+### ❤️ Contributors
+
+- Chris ([@chrisbbreuer](https://github.com/chrisbbreuer))
+
 ## v0.1.5...main
 
 [compare changes](https://github.com/stacksjs/gitit/compare/v0.1.5...main)
