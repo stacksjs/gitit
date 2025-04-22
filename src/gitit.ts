@@ -129,8 +129,7 @@ export async function downloadTemplate(
     }
   }
 
-  const provider
-    = options.providers?.[providerName] || providers[providerName] || registry
+  const provider = options.providers?.[providerName] || providers[providerName] || registry
   if (!provider) {
     throw new Error(`Unsupported provider: ${providerName}`)
   }
