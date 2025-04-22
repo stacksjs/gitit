@@ -8,7 +8,6 @@ import { relative, resolve } from 'node:path'
 import process from 'node:process'
 import { pipeline } from 'node:stream'
 import { promisify } from 'node:util'
-import { fetch } from 'node-fetch-native/proxy'
 
 export async function download(
   url: string,

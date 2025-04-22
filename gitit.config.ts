@@ -16,6 +16,8 @@ const config: GitItConfig = {
   offline: false,
   preferOffline: false,
 
+  // The hooks system allows you to customize the template download process
+  // Hooks are called at specific points in the template download and extraction workflow
   hooks: {
     // Before downloading a template
     beforeDownload: (template, options) => {
@@ -28,7 +30,22 @@ const config: GitItConfig = {
       console.log('Dependencies installed, running custom logic...')
       return result
     },
+
+    // Other available hooks:
+    // - afterDownload: Called after template has been downloaded
+    // - beforeExtract: Called before template is extracted
+    // - afterExtract: Called after template is extracted
+    // - beforeInstall: Called before dependencies are installed
   },
+
+  // You can also register plugins for even more extensibility
+  // plugins: [
+  //   // A plugin with no options
+  //   myCustomPlugin,
+  //
+  //   // A plugin with options
+  //   [anotherPlugin, { customOption: true }]
+  // ]
 }
 
 export default config
