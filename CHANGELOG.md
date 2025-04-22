@@ -1,4 +1,16 @@
 
+## v0.1.3...main
+
+[compare changes](https://github.com/stacksjs/gitit/compare/v0.1.3...main)
+
+### 🏡 Chore
+
+- Wip ([b3f3511](https://github.com/stacksjs/gitit/commit/b3f3511))
+
+### ❤️ Contributors
+
+- Chris ([@chrisbbreuer](https://github.com/chrisbbreuer))
+
 ## v0.1.2...main
 
 [compare changes](https://github.com/stacksjs/gitit/compare/v0.1.2...main)
