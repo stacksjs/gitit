@@ -68,7 +68,7 @@ export const github: TemplateProvider = (input, options) => {
 
   // https://docs.github.com/en/rest/repos/contents#download-a-repository-archive-tar
   // TODO: Verify solution for github enterprise
-  const githubAPIURL = process.env.GIGET_GITHUB_URL || 'https://api.github.com'
+  const githubAPIURL = process.env.GITIT_GITHUB_URL || 'https://api.github.com'
 
   return {
     name: parsed.repo.replace('/', '-'),
@@ -88,7 +88,7 @@ export const github: TemplateProvider = (input, options) => {
 
 export const gitlab: TemplateProvider = (input, options) => {
   const parsed = parseGitURI(input)
-  const gitlab = process.env.GIGET_GITLAB_URL || 'https://gitlab.com'
+  const gitlab = process.env.GITIT_GITLAB_URL || 'https://gitlab.com'
   return {
     name: parsed.repo.replace('/', '-'),
     version: parsed.ref,

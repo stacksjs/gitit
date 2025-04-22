@@ -12,6 +12,7 @@ commitlint
 commitlintrc
 composables
 davidanson
+defu
 degit
 deps
 destructurable

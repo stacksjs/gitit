@@ -1,4 +1,5 @@
 export * from './config'
 export * from './gitit'
+export * from './providers'
 export * from './types'
 export * from './utils'

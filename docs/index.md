@@ -3,9 +3,9 @@
 layout: home
 
 hero:
-  name: "ts-starter"
-  text: "For a better local environment."
-  tagline: "Modern and smart reverse proxy."
+  name: "gitit"
+  text: "For a better project start."
+  tagline: "Modern and smart template scaffolding."
   image: /images/logo-white.png
   actions:
     - theme: brand
@@ -13,21 +13,21 @@ hero:
       link: /intro
     - theme: alt
       text: View on GitHub
-      link: https://github.com/stacksjs/rpx
+      link: https://github.com/stacksjs/gitit
 
 features:
-  - title: "Minimal Starter Kit"
-    icon: "🔀"
-    details: "Bootstrap your next TypeScript project."
-  - title: "Documentation"
-    icon: "📚"
-    details: "Easily document your idea/package/library."
-  - title: "CLI"
-    icon: "🛠"
-    details: "Build your own CLI."
-  - title: "Binary"
+  - title: "Fast Template Cloning"
     icon: "🚀"
-    details: "Automatically builds a binary for your project out of your CLI."
+    details: "Clone templates from GitHub, GitLab, Bitbucket, and more."
+  - title: "CLI & Options"
+    icon: "🛠"
+    details: "Powerful CLI with extensive configuration options."
+  - title: "Custom Commands"
+    icon: "💻"
+    details: "Run your own commands after template cloning."
+  - title: "Offline Support"
+    icon: "🔄"
+    details: "Use cached templates when you're offline or prefer local versions."
 ---
 
 <Home />

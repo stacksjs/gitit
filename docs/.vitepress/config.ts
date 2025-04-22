@@ -1,5 +1,4 @@
 import type { HeadConfig } from 'vitepress'
-import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { withPwa } from '@vite-pwa/vitepress'
 import { defineConfig } from 'vitepress'
 
@@ -22,7 +21,7 @@ const nav = [
   { text: 'News', link: 'https://stacksjs.org/news' },
   {
     text: 'Changelog',
-    link: 'https://github.com/stacksjs/ts-starter/blob/main/CHANGELOG.md',
+    link: 'https://github.com/stacksjs/gitit/blob/main/CHANGELOG.md',
   },
   // { text: 'Blog', link: 'https://updates.ow3.org' },
   {
@@ -60,15 +59,37 @@ const sidebar = [
       { text: 'Config', link: '/config' },
     ],
   },
+  {
+    text: 'Features',
+    items: [
+      { text: 'Template Sources', link: '/features/template-sources' },
+      { text: 'Repository Support', link: '/features/repository-support' },
+      { text: 'Offline Mode', link: '/features/offline-mode' },
+      { text: 'Post-Install Commands', link: '/features/post-install-commands' },
+      { text: 'Interactive Shell', link: '/features/interactive-shell' },
+    ],
+  },
+  {
+    text: 'Advanced',
+    items: [
+      { text: 'Custom Templates', link: '/advanced/custom-templates' },
+      { text: 'Authentication', link: '/advanced/authentication' },
+      { text: 'GitHub Private Repos', link: '/advanced/github-private-repos' },
+      { text: 'Bitbucket Private Repos', link: '/advanced/bitbucket-private-repos' },
+      { text: 'Plugins', link: '/advanced/plugins' },
+      { text: 'Hooks', link: '/advanced/hooks' },
+    ],
+  },
+  { text: 'API Reference', link: '/api-reference' },
   { text: 'Showcase', link: '/Showcase' },
 ]
-const description = 'A TypeScript Starter Kit. For a better Development Experience.'
-const title = 'ts-starter | A TypeScript Starter Kit. For a better Development Experience.'
+const description = 'A powerful template and project scaffolding tool to help kick-start development of your next project.'
+const title = 'gitit | A powerful template and project scaffolding tool'
 
 export default withPwa(
   defineConfig({
     lang: 'en-US',
-    title: 'ts-starter',
+    title: 'gitit',
     description,
     metaChunk: true,
     cleanUrls: true,
@@ -83,7 +104,7 @@ export default withPwa(
       ['meta', { name: 'author', content: 'Stacks.js, Inc.' }],
       ['meta', {
         name: 'tags',
-        content: 'ts-starter, stacksjs, reverse proxy, modern, lightweight, zero-config, local development',
+        content: 'gitit, stacksjs, template, scaffolding, project generator, modern, lightweight, zero-config',
       }],
 
       ['meta', { property: 'og:type', content: 'website' }],
@@ -91,9 +112,9 @@ export default withPwa(
       ['meta', { property: 'og:title', content: title }],
       ['meta', { property: 'og:description', content: description }],
 
-      ['meta', { property: 'og:site_name', content: 'ts-starter' }],
+      ['meta', { property: 'og:site_name', content: 'gitit' }],
       ['meta', { property: 'og:image', content: './images/og-image.jpg' }],
-      ['meta', { property: 'og:url', content: 'https://reverse-proxy.sh/' }],
+      ['meta', { property: 'og:url', content: 'https://gitit.sh/' }],
       // ['script', { 'src': 'https://cdn.usefathom.com/script.js', 'data-site': '', 'data-spa': 'auto', 'defer': '' }],
       ...analyticsHead,
     ],
@@ -111,7 +132,7 @@ export default withPwa(
       sidebar,
 
       editLink: {
-        pattern: 'https://github.com/stacksjs/stacks/edit/main/docs/docs/:path',
+        pattern: 'https://github.com/stacksjs/gitit/edit/main/docs/:path',
         text: 'Edit this page on GitHub',
       },
 
@@ -123,7 +144,7 @@ export default withPwa(
       socialLinks: [
         { icon: 'twitter', link: 'https://twitter.com/stacksjs' },
         { icon: 'bluesky', link: 'https://bsky.app/profile/chrisbreuer.dev' },
-        { icon: 'github', link: 'https://github.com/stacksjs/ts-starter' },
+        { icon: 'github', link: 'https://github.com/stacksjs/gitit' },
         { icon: 'discord', link: 'https://discord.gg/stacksjs' },
       ],
 
@@ -147,9 +168,10 @@ export default withPwa(
         dark: 'github-dark',
       },
 
-      codeTransformers: [
-        transformerTwoslash(),
-      ],
+      // Disabling the transformer due to type errors
+      // codeTransformers: [
+      //   transformerTwoslash(),
+      // ],
     },
 
     vite: viteConfig,

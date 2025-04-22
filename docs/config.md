@@ -1,58 +1,78 @@
 # Configuration
 
-_This is just an example of the ts-starter docs._
-
-The Reverse Proxy can be configured using a `reverse-proxy.config.ts` _(or `reverse-proxy.config.js`)_ file and it will be automatically loaded when running the `reverse-proxy` command.
+Gitit can be configured using a `gitit.config.ts` _(or `gitit.config.js`)_ file and it will be automatically loaded when running the `gitit` command.
 
 ```ts
-// reverse-proxy.config.{ts,js}
-import type { ReverseProxyOptions } from '@stacksjs/rpx'
-import os from 'node:os'
-import path from 'node:path'
+// gitit.config.{ts,js}
+import type { GitItConfig } from '@stacksjs/gitit'
 
-const config: ReverseProxyOptions = {
+const config: GitItConfig = {
   /**
-   * The from URL to proxy from.
-   * Default: localhost:5173
-   */
-  from: 'localhost:5173',
-
-  /**
-   * The to URL to proxy to.
-   * Default: stacks.localhost
-   */
-  to: 'stacks.localhost',
-
-  /**
-   * The HTTPS settings.
+   * Whether to enable verbose logging.
    * Default: true
-   * If set to false, the proxy will use HTTP.
-   * If set to true, the proxy will use HTTPS.
-   * If set to an object, the proxy will use HTTPS with the provided settings.
    */
-  https: {
-    domain: 'stacks.localhost',
-    hostCertCN: 'stacks.localhost',
-    caCertPath: path.join(os.homedir(), '.stacks', 'ssl', `stacks.localhost.ca.crt`),
-    certPath: path.join(os.homedir(), '.stacks', 'ssl', `stacks.localhost.crt`),
-    keyPath: path.join(os.homedir(), '.stacks', 'ssl', `stacks.localhost.crt.key`),
-    altNameIPs: ['127.0.0.1'],
-    altNameURIs: ['localhost'],
-    organizationName: 'stacksjs.org',
-    countryName: 'US',
-    stateName: 'California',
-    localityName: 'Playa Vista',
-    commonName: 'stacks.localhost',
-    validityDays: 180,
-    verbose: false,
-  },
+  verbose: true,
 
   /**
-   * The verbose setting.
-   * Default: false
-   * If set to true, the proxy will log more information.
+   * Default directory to clone templates to if not specified.
+   * Default: './'
    */
-  verbose: false,
+  dir: './',
+
+  /**
+   * Whether to clone to existing directory even if it exists.
+   * Default: false
+   */
+  force: false,
+
+  /**
+   * Whether to remove any existing directory or file recursively before cloning.
+   * Default: false
+   */
+  forceClean: false,
+
+  /**
+   * Whether to open a new shell with current working directory after cloning.
+   * Default: false
+   */
+  shell: false,
+
+  /**
+   * Whether to install dependencies after cloning.
+   * Default: true
+   */
+  install: true,
+
+  /**
+   * Custom command to run after template is cloned.
+   * Default: ''
+   */
+  command: '',
+
+  /**
+   * Custom Authorization token to use for downloading templates.
+   * Can be overridden with `GITIT_AUTH` environment variable.
+   * Default: ''
+   */
+  auth: '',
+
+  /**
+   * Set current working directory to resolve dirs relative to it.
+   * Default: process.cwd()
+   */
+  cwd: process.cwd(),
+
+  /**
+   * Whether to use offline mode (don't attempt to download and use cached version).
+   * Default: false
+   */
+  offline: false,
+
+  /**
+   * Whether to prefer offline mode (use cache if exists otherwise try to download).
+   * Default: false
+   */
+  preferOffline: false,
 }
 
 export default config
@@ -61,7 +81,7 @@ export default config
 _Then run:_
 
 ```bash
-./rpx start
+gitit template github:user/repo my-project
 ```
 
-To learn more, head over to the [documentation](https://reverse-proxy.sh/).
+To learn more, head over to the [documentation](https://gitit.sh/).

@@ -8,45 +8,64 @@
 
 # gitit
 
-This is an opinionated TypeScript Starter kit to help kick-start development of your next Bun package.
+A powerful template and project scaffolding tool to help kick-start development of your next project.
 
 ## Features
 
-This Starter Kit comes pre-configured with the following:
+Gitit comes with the following features:
 
-- 🛠️ [Powerful Build Process](https://github.com/oven-sh/bun) - via Bun
-- 💪🏽 [Fully Typed APIs](https://www.typescriptlang.org/) - via TypeScript
-- 📚 [Documentation-ready](https://vitepress.dev/) - via VitePress
-- ⌘ [CLI & Binary](https://www.npmjs.com/package/bunx) - via Bun & CAC
-- 🧪 [Built With Testing In Mind](https://bun.sh/docs/cli/test) - pre-configured unit-testing powered by [Bun](https://bun.sh/docs/cli/test)
-- 🤖 [Renovate](https://renovatebot.com/) - optimized & automated PR dependency updates
-- 🎨 [ESLint](https://eslint.org/) - for code linting _(and formatting)_
-- 📦️ [pkg.pr.new](https://pkg.pr.new) - Continuous (Preview) Releases for your libraries
-- 🐙 [GitHub Actions](https://github.com/features/actions) - runs your CI _(fixes code style issues, tags releases & creates its changelogs, runs the test suite, etc.)_
+- 🚀 **Fast Template Cloning** _Clone templates from GitHub, GitLab, Bitbucket, and more_
+- 💪 **Fully Typed APIs** _Written in TypeScript for a great developer experience_
+- 📦 **Zero Configuration** _Works out of the box with sensible defaults_
+- 🔄 **Offline Support** _Use cached templates when offline_
+- 🛠️ **Customizable** _Configure templates with various options_
+- 🧩 **Post-Installation Commands** _Run custom commands after cloning_
+- 🔑 **Private Repository Support** _Authentication for private templates_
+- 🖥️ **Interactive Shell** _Open a shell in your newly created project_
 
 ## Get Started
 
-It's rather simple to get your package development started:
-
 ```bash
-# you may use this GitHub template or the following command:
-bunx degit stacksjs/gitit my-pkg
-cd my-pkg
+# Install globally
+bun install -g @stacksjs/gitit
 
-bun i # install all deps
-bun run build # builds the library for production-ready use
-
-# after you have successfully committed, you may create a "release"
-bun run release # automates git commits, versioning, and changelog generations
+# or use directly with bunx
+bunx @stacksjs/gitit template github:user/repo my-project
 ```
 
-_Check out the package.json scripts for more commands._
-
-## Testing
+## Usage
 
 ```bash
-bun test
+# Basic usage
+gitit template github:user/repo my-project
+
+# With options
+gitit template github:user/repo my-project --install --shell
+
+# Clone with custom command
+gitit template github:user/repo my-project --command "npm run dev"
+
+# Use offline cached template
+gitit template github:user/repo my-project --offline
+
+# Clone to a specific directory
+gitit template github:user/repo ./path/to/project
 ```
+
+## Available Options
+
+| Option | Description |
+|--------|-------------|
+| `--force` | Clone to existing directory even if it exists |
+| `--force-clean` | Remove any existing directory or file recursively before cloning |
+| `--shell` | Open a new shell with current working directory |
+| `--install` | Install dependencies after cloning |
+| `--verbose` | Show verbose debugging info |
+| `--command` | Custom command to run after template is cloned |
+| `--auth` | Custom Authorization token for private repositories |
+| `--cwd` | Set current working directory to resolve dirs relative to it |
+| `--offline` | Do not attempt to download and use cached version |
+| `--prefer-offline` | Use cache if exists otherwise try to download |
 
 ## Changelog
 
