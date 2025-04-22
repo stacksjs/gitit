@@ -43,10 +43,10 @@ jobs:
         uses: stacksjs/action-releaser@v1.0.0
         with:
           files: |
-            bin/gitit-linux-x64
-            bin/gitit-linux-arm64
-            bin/gitit-windows-x64.exe
-            bin/gitit-darwin-x64
-            bin/gitit-darwin-arm64
+            bin/gitit-linux-x64.zip
+            bin/gitit-linux-arm64.zip
+            bin/gitit-windows-x64.zip
+            bin/gitit-darwin-x64.zip
+            bin/gitit-darwin-arm64.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
