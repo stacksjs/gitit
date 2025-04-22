@@ -30,10 +30,10 @@ It's easy to get started with gitit:
 bun install -g @stacksjs/gitit
 
 # Clone a template
-gitit template github:user/repo my-project
+gitit github:user/repo my-project
 
 # With options
-gitit template github:user/repo my-project --install --shell
+gitit github:user/repo my-project --install --shell
 ```
 
 _Check out the Usage section for more advanced examples._

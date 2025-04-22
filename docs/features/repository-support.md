@@ -7,7 +7,7 @@ Gitit provides comprehensive support for different types of repositories, includ
 By default, Gitit works seamlessly with public repositories. You can clone from any public repository without authentication:
 
 ```bash
-gitit template github:user/repo my-project
+gitit github:user/repo my-project
 ```
 
 ## Private Repositories
@@ -15,14 +15,14 @@ gitit template github:user/repo my-project
 For private repositories, you'll need to provide authentication credentials. Gitit supports authentication via access tokens:
 
 ```bash
-gitit template github:user/private-repo my-project --auth "your-access-token"
+gitit github:user/private-repo my-project --auth "your-access-token"
 ```
 
 You can also set the authentication token in your environment variables to avoid typing it each time:
 
 ```bash
 export GITIT_AUTH="your-access-token"
-gitit template github:user/private-repo my-project
+gitit github:user/private-repo my-project
 ```
 
 ## Repository Providers
@@ -42,7 +42,7 @@ Each provider has specific implementation details for accessing repositories:
 GitHub repositories use the GitHub API to download templates:
 
 ```bash
-gitit template github:user/repo my-project
+gitit github:user/repo my-project
 ```
 
 This will download the repository using the GitHub API URL: `https://api.github.com/repos/user/repo/tarball/main`
@@ -52,7 +52,7 @@ This will download the repository using the GitHub API URL: `https://api.github.
 GitLab repositories are downloaded directly from the GitLab archive endpoint:
 
 ```bash
-gitit template gitlab:user/repo my-project
+gitit gitlab:user/repo my-project
 ```
 
 This will download the repository from: `https://gitlab.com/user/repo/-/archive/main.tar.gz`
@@ -62,7 +62,7 @@ This will download the repository from: `https://gitlab.com/user/repo/-/archive/
 Bitbucket repositories use Bitbucket's archive endpoint:
 
 ```bash
-gitit template bitbucket:user/repo my-project
+gitit bitbucket:user/repo my-project
 ```
 
 This will download from: `https://bitbucket.org/user/repo/get/main.tar.gz`
@@ -72,7 +72,7 @@ This will download from: `https://bitbucket.org/user/repo/get/main.tar.gz`
 SourceHut repositories use SourceHut's archive endpoint:
 
 ```bash
-gitit template sourcehut:user/repo my-project
+gitit sourcehut:user/repo my-project
 ```
 
 This will download from: `https://git.sr.ht/~user/repo/archive/main.tar.gz`
@@ -82,7 +82,7 @@ This will download from: `https://git.sr.ht/~user/repo/archive/main.tar.gz`
 You can download templates directly from HTTP/HTTPS URLs to .tar.gz files:
 
 ```bash
-gitit template https://example.com/template.tar.gz my-project
+gitit https://example.com/template.tar.gz my-project
 ```
 
 ## Environment Variables
@@ -100,7 +100,7 @@ Provider behavior can be customized using environment variables:
 You can clone specific subdirectories from a repository:
 
 ```bash
-gitit template github:user/repo/path/to/directory my-project
+gitit github:user/repo/path/to/directory my-project
 ```
 
 This is handled by filtering the contents of the tarball during extraction, so only files from the specified subdirectory are extracted.
@@ -111,10 +111,10 @@ You can specify branches or tags to clone from:
 
 ```bash
 # Clone from a branch
-gitit template github:user/repo#dev my-project
+gitit github:user/repo#dev my-project
 
 # Clone from a tag
-gitit template github:user/repo#v1.0.0 my-project
+gitit github:user/repo#v1.0.0 my-project
 ```
 
 The branch or tag name is included in the API request to fetch the specific version.

@@ -1,6 +1,6 @@
 {
   "name": "stacks",
-  "defaultDir": "stack-example",
+  "defaultDir": "my-project",
   "url": "https://stacks.ow3.org",
-  "tar": "https://codeload.github.com/ow3org/stacks/tar.gz/refs/heads/main"
+  "tar": "https://codeload.github.com/stacksjs/stacks/tar.gz/refs/heads/main"
 }

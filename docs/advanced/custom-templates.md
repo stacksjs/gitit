@@ -83,7 +83,7 @@ This configuration file defines the template's metadata, variables, and lifecycl
 You can use custom templates just like any other template with Gitit:
 
 ```bash
-gitit template github:username/my-custom-template new-project
+gitit github:username/my-custom-template new-project
 ```
 
 If your template includes variables, you'll be prompted to provide values during the creation process.
@@ -93,7 +93,7 @@ If your template includes variables, you'll be prompted to provide values during
 You can also use local template directories:
 
 ```bash
-gitit template ./path/to/local/template new-project
+gitit ./path/to/local/template new-project
 ```
 
 This is useful during template development or for templates not hosted in a Git repository.
@@ -104,7 +104,7 @@ To share your custom templates with others:
 
 1. Push your template repository to a Git hosting service
 2. Share the template URL with your team or community
-3. Consider adding your template to the Gitit template registry (forthcoming feature)
+3. Consider adding your template to the gitit registry (forthcoming feature)
 
 ## Best Practices
 

@@ -30,26 +30,26 @@ Gitit comes with the following features:
 bun install -g @stacksjs/gitit
 
 # or use directly with bunx
-bunx @stacksjs/gitit template github:user/repo my-project
+bunx @stacksjs/gitit github:user/repo my-project
 ```
 
 ## Usage
 
 ```bash
 # Basic usage
-gitit template github:user/repo my-project
+gitit github:user/repo my-project
 
 # With options
-gitit template github:user/repo my-project --install --shell
+gitit github:user/repo my-project --install --shell
 
 # Clone with custom command
-gitit template github:user/repo my-project --command "npm run dev"
+gitit github:user/repo my-project --command "npm run dev"
 
 # Use offline cached template
-gitit template github:user/repo my-project --offline
+gitit github:user/repo my-project --offline
 
 # Clone to a specific directory
-gitit template github:user/repo ./path/to/project
+gitit github:user/repo ./path/to/project
 ```
 
 ## Available Options

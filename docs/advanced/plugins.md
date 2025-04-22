@@ -156,7 +156,7 @@ providers: {
 This would allow users to use templates with:
 
 ```bash
-gitit template myCompany:template-name my-project
+gitit myCompany:template-name my-project
 ```
 
 ## Plugin Configuration

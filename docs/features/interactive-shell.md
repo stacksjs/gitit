@@ -7,7 +7,7 @@ Gitit provides a convenient feature to open an interactive shell in your newly c
 To use the interactive shell feature, add the `--shell` flag when cloning a template:
 
 ```bash
-gitit template github:user/repo my-project --shell
+gitit github:user/repo my-project --shell
 ```
 
 This will:
@@ -40,10 +40,10 @@ The `--shell` option works well when combined with other Gitit features:
 
 ```bash
 # Clone a template, install dependencies, and open a shell
-gitit template github:user/repo my-project --install --shell
+gitit github:user/repo my-project --install --shell
 
 # Clone a template, run a custom command, and open a shell
-gitit template github:user/repo my-project --command "npm run setup" --shell
+gitit github:user/repo my-project --command "npm run setup" --shell
 ```
 
 In these cases, the shell opens after any other post-clone operations are completed.
@@ -84,7 +84,7 @@ A typical workflow using the interactive shell might look like:
 
 ```bash
 # Clone a template and open a shell
-gitit template github:vuejs/vue-next-webpack-preview my-vue-app --shell
+gitit github:vuejs/vue-next-webpack-preview my-vue-app --shell
 
 # In the new shell, you can immediately start working
 npm install

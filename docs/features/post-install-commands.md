@@ -7,7 +7,7 @@ Gitit allows you to execute custom commands after a template is cloned, helping 
 You can specify a command to run after cloning using the `--command` option:
 
 ```bash
-gitit template github:user/repo my-project --command "npm run dev"
+gitit github:user/repo my-project --command "npm run dev"
 ```
 
 This will:
@@ -25,7 +25,7 @@ Post-install commands are useful for various scenarios:
 Immediately start a development server after cloning:
 
 ```bash
-gitit template github:user/vue-app my-vue-app --command "npm run dev"
+gitit github:user/vue-app my-vue-app --command "npm run dev"
 ```
 
 ### Running Setup Scripts
@@ -33,7 +33,7 @@ gitit template github:user/vue-app my-vue-app --command "npm run dev"
 Execute initialization or customization scripts:
 
 ```bash
-gitit template github:user/starter my-project --command "./setup.sh"
+gitit github:user/starter my-project --command "./setup.sh"
 ```
 
 ### Opening Editors
@@ -41,7 +41,7 @@ gitit template github:user/starter my-project --command "./setup.sh"
 Launch your favorite editor or IDE:
 
 ```bash
-gitit template github:user/repo my-project --command "code ."
+gitit github:user/repo my-project --command "code ."
 ```
 
 ### Chaining Multiple Commands
@@ -49,7 +49,7 @@ gitit template github:user/repo my-project --command "code ."
 You can chain multiple commands using shell syntax:
 
 ```bash
-gitit template github:user/repo my-project --command "npm install && npm run build && npm run dev"
+gitit github:user/repo my-project --command "npm install && npm run build && npm run dev"
 ```
 
 ## Environment Variables
@@ -63,7 +63,7 @@ Post-install commands have access to the following environment variables:
 Example of using these variables:
 
 ```bash
-gitit template github:user/repo my-project --command "echo 'Cloned $GITIT_TEMPLATE to $GITIT_DIR'"
+gitit github:user/repo my-project --command "echo 'Cloned $GITIT_TEMPLATE to $GITIT_DIR'"
 ```
 
 ## Configuration File
@@ -83,7 +83,7 @@ export default {
 Post-install commands work well when combined with other Gitit options:
 
 ```bash
-gitit template github:user/repo my-project --install --command "npm run dev"
+gitit github:user/repo my-project --install --command "npm run dev"
 ```
 
 This will install dependencies first (via the `--install` flag) and then run the development server.

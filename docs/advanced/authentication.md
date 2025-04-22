@@ -9,14 +9,14 @@ Gitit supports authentication for private repositories across different provider
 The most common authentication method is using personal access tokens:
 
 ```bash
-gitit template github:user/private-repo my-project --auth "your-access-token"
+gitit github:user/private-repo my-project --auth "your-access-token"
 ```
 
 You can also provide authentication via environment variables:
 
 ```bash
 export GITIT_AUTH="your-access-token"
-gitit template github:user/private-repo my-project
+gitit github:user/private-repo my-project
 ```
 
 The environment variable `GITIT_AUTH` is checked by default if no `--auth` parameter is provided.
@@ -34,7 +34,7 @@ Authorization: Bearer your-access-token
 For GitHub, you need a [Personal Access Token (PAT)](https://github.com/settings/tokens):
 
 ```bash
-gitit template github:user/private-repo my-project --auth "ghp_xxxxxxxxxxxxxxx"
+gitit github:user/private-repo my-project --auth "ghp_xxxxxxxxxxxxxxx"
 ```
 
 GitHub API calls use the following headers:
@@ -50,7 +50,7 @@ X-GitHub-Api-Version: 2022-11-28
 For GitLab, you need a [Personal Access Token](https://gitlab.com/-/profile/personal_access_tokens):
 
 ```bash
-gitit template gitlab:user/private-repo my-project --auth "glpat-xxxxxxxxxxxxxxx"
+gitit gitlab:user/private-repo my-project --auth "glpat-xxxxxxxxxxxxxxx"
 ```
 
 ### Bitbucket
@@ -58,7 +58,7 @@ gitit template gitlab:user/private-repo my-project --auth "glpat-xxxxxxxxxxxxxxx
 For Bitbucket, you need an [App Password](https://bitbucket.org/account/settings/app-passwords/):
 
 ```bash
-gitit template bitbucket:user/private-repo my-project --auth "your-app-password"
+gitit bitbucket:user/private-repo my-project --auth "your-app-password"
 ```
 
 ### SourceHut
@@ -66,7 +66,7 @@ gitit template bitbucket:user/private-repo my-project --auth "your-app-password"
 For SourceHut, use your [OAuth token](https://meta.sr.ht/oauth):
 
 ```bash
-gitit template sourcehut:user/private-repo my-project --auth "your-oauth-token"
+gitit sourcehut:user/private-repo my-project --auth "your-oauth-token"
 ```
 
 ## Custom GitHub or GitLab Instances
@@ -76,11 +76,11 @@ If you're using a GitHub Enterprise or custom GitLab instance, you can set the A
 ```bash
 # For GitHub Enterprise
 export GITIT_GITHUB_URL="https://github.your-company.com/api/v3"
-gitit template github:user/private-repo my-project
+gitit github:user/private-repo my-project
 
 # For GitLab self-hosted
 export GITIT_GITLAB_URL="https://gitlab.your-company.com"
-gitit template gitlab:user/private-repo my-project
+gitit gitlab:user/private-repo my-project
 ```
 
 ## Secure Authentication Practices
@@ -118,7 +118,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Clone template
-        run: gitit template github:user/private-repo my-project
+        run: gitit github:user/private-repo my-project
         env:
           GITIT_AUTH: ${{ secrets.GITHUB_TOKEN }}
 ```

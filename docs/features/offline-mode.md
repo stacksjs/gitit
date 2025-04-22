@@ -73,7 +73,7 @@ When you need to work without an internet connection, Gitit offers two main offl
 Use the `--offline` flag to work exclusively with cached templates:
 
 ```bash
-gitit template github:user/repo my-project --offline
+gitit github:user/repo my-project --offline
 ```
 
 In this mode, Gitit will:
@@ -89,7 +89,7 @@ This is useful when you're completely offline and want to ensure no network requ
 Use the `--prefer-offline` flag to prioritize cached templates:
 
 ```bash
-gitit template github:user/repo my-project --prefer-offline
+gitit github:user/repo my-project --prefer-offline
 ```
 
 In this mode, Gitit will:

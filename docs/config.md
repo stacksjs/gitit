@@ -81,7 +81,7 @@ export default config
 _Then run:_
 
 ```bash
-gitit template github:user/repo my-project
+gitit github:user/repo my-project
 ```
 
 To learn more, head over to the [documentation](https://gitit.sh/).

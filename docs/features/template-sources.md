@@ -9,9 +9,9 @@ Gitit supports cloning templates from various sources, making it easy to start y
 GitHub is the most popular source for templates. You can clone from GitHub using the following syntax:
 
 ```bash
-gitit template github:user/repo my-project
+gitit github:user/repo my-project
 # or the shorthand
-gitit template gh:user/repo my-project
+gitit gh:user/repo my-project
 ```
 
 This uses the GitHub API to download the repository tarball.
@@ -21,7 +21,7 @@ This uses the GitHub API to download the repository tarball.
 For templates hosted on GitLab:
 
 ```bash
-gitit template gitlab:user/repo my-project
+gitit gitlab:user/repo my-project
 ```
 
 This downloads directly from GitLab's archive endpoint.
@@ -31,7 +31,7 @@ This downloads directly from GitLab's archive endpoint.
 For templates hosted on Bitbucket:
 
 ```bash
-gitit template bitbucket:user/repo my-project
+gitit bitbucket:user/repo my-project
 ```
 
 This uses Bitbucket's archive API to get the template.
@@ -41,7 +41,7 @@ This uses Bitbucket's archive API to get the template.
 For templates hosted on SourceHut:
 
 ```bash
-gitit template sourcehut:user/repo my-project
+gitit sourcehut:user/repo my-project
 ```
 
 This downloads from SourceHut's archive endpoint.
@@ -51,7 +51,7 @@ This downloads from SourceHut's archive endpoint.
 You can also use direct HTTP/HTTPS URLs to download templates:
 
 ```bash
-gitit template https://example.com/template.tar.gz my-project
+gitit https://example.com/template.tar.gz my-project
 ```
 
 This will download the tarball directly from the specified URL.
@@ -63,7 +63,7 @@ This will download the tarball directly from the specified URL.
 You can specify a particular branch using the `#` symbol:
 
 ```bash
-gitit template github:user/repo#dev my-project
+gitit github:user/repo#dev my-project
 ```
 
 This will clone the template from the `dev` branch. If not specified, Gitit defaults to the `main` branch.
@@ -73,7 +73,7 @@ This will clone the template from the `dev` branch. If not specified, Gitit defa
 To clone from a specific subdirectory within a repository:
 
 ```bash
-gitit template github:user/repo/packages/ui my-project
+gitit github:user/repo/packages/ui my-project
 ```
 
 This will clone only the contents of the `packages/ui` directory. The subdirectory filtering is done during the extraction process.
@@ -83,7 +83,7 @@ This will clone only the contents of the `packages/ui` directory. The subdirecto
 You can also combine both features:
 
 ```bash
-gitit template github:user/repo/packages/ui#dev my-project
+gitit github:user/repo/packages/ui#dev my-project
 ```
 
 This will clone the contents of the `packages/ui` directory from the `dev` branch.

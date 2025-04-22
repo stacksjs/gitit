@@ -1,8 +1,11 @@
 import type { GitItOptions } from '../src/types'
+import { spawn } from 'node:child_process'
 import { relative } from 'node:path'
 import process from 'node:process'
 import { CAC } from 'cac'
 import { version } from '../package.json'
+import { downloadTemplate } from '../src/gitit'
+import { startShell } from '../src/utils'
 
 const cli = new CAC('gitit')
 
@@ -42,22 +45,55 @@ cli
       process.chdir(options.cwd)
     }
 
-    // Placeholder for actual template download logic
-    const templateDir = dir || './'
-    const _to = relative(process.cwd(), templateDir) || './'
-    console.log(`✨ Successfully cloned to \`${_to}\`\n`)
+    try {
+      // Use the actual downloadTemplate function instead of placeholder
+      const result = await downloadTemplate(template, {
+        dir,
+        force: options?.force,
+        forceClean: options?.forceClean,
+        offline: options?.offline,
+        preferOffline: options?.preferOffline,
+        auth: options?.auth,
+        install: options?.install,
+      })
 
-    // Open a shell if requested
-    if (options?.shell) {
-      console.log('Opening shell in cloned directory...')
-      // Placeholder for shell opening logic
+      const _to = relative(process.cwd(), result.dir) || './'
+      console.log(`✨ Successfully cloned to \`${_to}\`\n`)
+
+      // Open a shell if requested
+      if (options?.shell) {
+        startShell(result.dir)
+      }
+
+      // Run custom command if specified
+      if (options?.command) {
+        console.log(`Running command: ${options.command}`)
+
+        // Execute the command
+        const [cmd, ...args] = options.command.split(' ')
+        const child = spawn(cmd!, args, {
+          cwd: result.dir,
+          stdio: 'inherit',
+          shell: true,
+        })
+
+        // Wait for the command to finish
+        await new Promise<void>((resolve, reject) => {
+          child.on('close', (code) => {
+            if (code === 0) {
+              resolve()
+            }
+            else {
+              reject(new Error(`Command exited with code ${code}`))
+            }
+          })
+          child.on('error', reject)
+        })
+      }
     }
-
-    // Run custom command if specified
-    if (options?.command) {
-      console.log(`Running command: ${options.command}`)
-      // Placeholder for command execution
-      console.log(`Command execution would happen here`)
+    catch (error) {
+      console.error(`Error cloning template: ${error instanceof Error ? error.message : String(error)}`)
+      process.exit(1)
     }
   })
 

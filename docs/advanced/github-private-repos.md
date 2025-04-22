@@ -20,7 +20,7 @@ To access private repositories, you'll need a Personal Access Token:
 4. Scroll down to the bottom of the left sidebar and click on **Developer settings**
 5. Click on **Personal access tokens** → **Tokens (classic)**
 6. Click **Generate new token** → **Generate new token (classic)**
-7. Give your token a descriptive name (e.g., "Gitit Template Access")
+7. Give your token a descriptive name (e.g., "gitit Access")
 8. Select the following scopes:
    - **repo** (Full control of private repositories)
    - **read:packages** (Optional - if you need to access template packages)
@@ -32,7 +32,7 @@ To access private repositories, you'll need a Personal Access Token:
 Once you have your personal access token, you can use it to clone private repositories:
 
 ```bash
-gitit template github:username/private-repo my-project --auth "ghp_your_token_here"
+gitit github:username/private-repo my-project --auth "ghp_your_token_here"
 ```
 
 Replace:
@@ -47,7 +47,7 @@ For security and convenience, you can set your token as an environment variable:
 
 ```bash
 export GITIT_AUTH="ghp_your_token_here"
-gitit template github:username/private-repo my-project
+gitit github:username/private-repo my-project
 ```
 
 Add this to your `.bashrc`, `.zshrc`, or equivalent shell configuration file for persistent access.
@@ -91,7 +91,7 @@ If you're using GitHub Enterprise, you can set a custom API URL:
 
 ```bash
 export GITIT_GITHUB_URL="https://github.your-company.com/api/v3"
-gitit template github:username/private-repo my-project --auth "your-token"
+gitit github:username/private-repo my-project --auth "your-token"
 ```
 
 ### Specifying Branches
@@ -99,7 +99,7 @@ gitit template github:username/private-repo my-project --auth "your-token"
 To clone a specific branch from a private GitHub repository:
 
 ```bash
-gitit template github:username/private-repo#develop my-project --auth "your-token"
+gitit github:username/private-repo#develop my-project --auth "your-token"
 ```
 
 ### Cloning Subdirectories
@@ -107,7 +107,7 @@ gitit template github:username/private-repo#develop my-project --auth "your-toke
 To clone only a specific subdirectory from a private repository:
 
 ```bash
-gitit template github:username/private-repo/path/to/directory my-project --auth "your-token"
+gitit github:username/private-repo/path/to/directory my-project --auth "your-token"
 ```
 
 ### Combined Branch and Subdirectory
@@ -115,7 +115,7 @@ gitit template github:username/private-repo/path/to/directory my-project --auth 
 You can specify both a branch and a subdirectory:
 
 ```bash
-gitit template github:username/private-repo/path/to/directory#develop my-project --auth "your-token"
+gitit github:username/private-repo/path/to/directory#develop my-project --auth "your-token"
 ```
 
 ## Configuration File
@@ -144,7 +144,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Clone GitHub template
-        run: gitit template github:username/private-repo my-project
+        run: gitit github:username/private-repo my-project
         env:
           GITIT_AUTH: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -167,7 +167,7 @@ If you're using GitHub CLI (`gh`), you can create a token and use it directly:
 gh auth token
 
 # Use the token with gitit
-gitit template github:username/private-repo my-project --auth "$(gh auth token)"
+gitit github:username/private-repo my-project --auth "$(gh auth token)"
 ```
 
 This approach avoids storing the token in your environment or files.

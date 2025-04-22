@@ -1,10 +1,10 @@
 import type { DownloadTemplateOptions, DownloadTemplateResult, ExtractOptions as GitItExtractOptions, Hooks, InstallOptions, TemplateProvider } from './types'
+import { spawn } from 'node:child_process'
 import { existsSync, readdirSync } from 'node:fs'
 import { mkdir, rm } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import process from 'node:process'
 import defu from 'defu'
-import { parseTar } from 'nanotar'
 import { providers } from './providers'
 import { registryProvider } from './registry'
 import { cacheDirectory, debug, download, normalizeHeaders } from './utils'
@@ -16,9 +16,76 @@ const sourceProtoRe = /^([\w-.]+):/
  * Install dependencies for a template
  */
 async function installDependencies(options: InstallOptions): Promise<void> {
-  // Implementation needed here
-  // This is a placeholder for now
   debug(`Installing dependencies in ${options.cwd}`)
+
+  // Detect package manager based on lock files
+  let packageManager = 'npm'
+  const installCommand = 'install'
+
+  if (existsSync(resolve(options.cwd, 'pnpm-lock.yaml'))) {
+    packageManager = 'pnpm'
+  }
+  else if (existsSync(resolve(options.cwd, 'yarn.lock'))) {
+    packageManager = 'yarn'
+  }
+  else if (existsSync(resolve(options.cwd, 'bun.lockb'))) {
+    packageManager = 'bun'
+  }
+
+  debug(`Detected package manager: ${packageManager}`)
+
+  // Execute the install command
+  const child = spawn(packageManager, [installCommand], {
+    cwd: options.cwd,
+    stdio: options.silent ? 'ignore' : 'inherit',
+    shell: true,
+  })
+
+  return new Promise((resolve, reject) => {
+    child.on('close', (code) => {
+      if (code === 0) {
+        debug(`Dependencies installed successfully using ${packageManager}`)
+        resolve()
+      }
+      else {
+        reject(new Error(`${packageManager} ${installCommand} exited with code ${code}`))
+      }
+    })
+    child.on('error', (err) => {
+      reject(new Error(`Failed to run ${packageManager} ${installCommand}: ${err.message}`))
+    })
+  })
+}
+
+/**
+ * Extract a tarball using the native tar command
+ */
+async function extractTar(options: GitItExtractOptions): Promise<void> {
+  const { file, cwd } = options
+
+  debug(`Extracting tarball ${file} to ${cwd}`)
+
+  // Simple case: extract all files from tarball to cwd
+  return new Promise<void>((resolve, reject) => {
+    // Use --strip-components=1 to remove the first directory level (e.g., stacks-main/)
+    const child = spawn('tar', ['-xzf', file, '--strip-components=1', '-C', cwd], {
+      stdio: 'inherit',
+    })
+
+    child.on('close', (code) => {
+      if (code === 0) {
+        debug(`Extracted tarball ${file} to ${cwd}`)
+        resolve()
+      }
+      else {
+        reject(new Error(`tar -xzf exited with code ${code}`))
+      }
+    })
+
+    child.on('error', (err) => {
+      reject(new Error(`Failed to run tar: ${err.message}`))
+    })
+  })
 }
 
 /**
@@ -250,43 +317,7 @@ export async function downloadTemplate(
     extractOptions = hookResult.extractOptions
   }
 
-  // Extract the template using nanotar
-  // Read the file into memory
-  const fs = await import('node:fs/promises')
-  const tarData = await fs.readFile(extractOptions.file)
-
-  // Parse and extract the tar file
-  const entries = parseTar(tarData, {
-    filter: (entry) => {
-      // Create a compatible object for the onentry function
-      const entryForHook = { path: entry.name }
-
-      if (typeof extractOptions.onentry === 'function') {
-        extractOptions.onentry(entryForHook)
-      }
-
-      // Skip entries with empty paths (filtered out by onentry)
-      return entryForHook.path !== ''
-    },
-  })
-
-  // Write the files to disk
-  for (const entry of entries) {
-    if (entry.type === 'directory') {
-      const dirPath = resolve(extractOptions.cwd, entry.name)
-      await fs.mkdir(dirPath, { recursive: true })
-    }
-    else if (entry.type === 'file') {
-      const filePath = resolve(extractOptions.cwd, entry.name)
-      // Ensure parent directory exists
-      await fs.mkdir(dirname(filePath), { recursive: true })
-      // Make sure we have data before writing
-      if (entry.data) {
-        await fs.writeFile(filePath, entry.data)
-      }
-    }
-    // We could handle other types like symlinks if needed
-  }
+  await extractTar(extractOptions)
 
   debug(`Extracted to ${extractPath} in ${Date.now() - s}ms`)
 

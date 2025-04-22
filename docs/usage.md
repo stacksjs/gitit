@@ -33,31 +33,31 @@ The CLI provides a simple way to clone templates:
 
 ```bash
 # Basic usage
-gitit template github:user/repo my-project
+gitit github:user/repo my-project
 
 # With options
-gitit template github:user/repo my-project --install --shell
+gitit github:user/repo my-project --install --shell
 
 # Clone with force option to overwrite existing directory
-gitit template github:user/repo my-project --force
+gitit github:user/repo my-project --force
 
 # Clean the directory before cloning
-gitit template github:user/repo my-project --force-clean
+gitit github:user/repo my-project --force-clean
 
 # Run custom command after cloning
-gitit template github:user/repo my-project --command "npm run dev"
+gitit github:user/repo my-project --command "npm run dev"
 
 # Use offline mode
-gitit template github:user/repo my-project --offline
+gitit github:user/repo my-project --offline
 
 # Prefer offline mode (use cache if available)
-gitit template github:user/repo my-project --prefer-offline
+gitit github:user/repo my-project --prefer-offline
 
 # Authentication for private repositories
-gitit template github:user/private-repo my-project --auth "your-token"
+gitit github:user/private-repo my-project --auth "your-token"
 
 # Set working directory
-gitit template github:user/repo my-project --cwd "/path/to/parent"
+gitit github:user/repo my-project --cwd "/path/to/parent"
 
 # Show help
 gitit --help
@@ -79,13 +79,13 @@ You can also specify subdirectories and branches:
 
 ```bash
 # Clone from a specific branch
-gitit template github:user/repo#dev my-project
+gitit github:user/repo#dev my-project
 
 # Clone from a specific subdirectory
-gitit template github:user/repo/packages/ui my-project
+gitit github:user/repo/packages/ui my-project
 
 # Clone from a specific branch and subdirectory
-gitit template github:user/repo/packages/ui#dev my-project
+gitit github:user/repo/packages/ui#dev my-project
 ```
 
 ## Testing

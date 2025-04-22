@@ -19,7 +19,7 @@ Bitbucket uses App Passwords for API authentication. To create one:
 3. Select **Personal settings** from the menu
 4. In the left sidebar, click on **App passwords**
 5. Click the **Create app password** button
-6. Give your app password a descriptive name (e.g., "Gitit Template Access")
+6. Give your app password a descriptive name (e.g., "gitit Access")
 7. Select the following permissions:
    - **Repository**: Read
    - **Pull requests**: Read (optional)
@@ -31,7 +31,7 @@ Bitbucket uses App Passwords for API authentication. To create one:
 Once you have your app password, you can use it to clone private repositories:
 
 ```bash
-gitit template bitbucket:username/private-repo my-project --auth "your-app-password"
+gitit bitbucket:username/private-repo my-project --auth "your-app-password"
 ```
 
 Replace:
@@ -46,7 +46,7 @@ For security and convenience, you can set your app password as an environment va
 
 ```bash
 export GITIT_AUTH="your-app-password"
-gitit template bitbucket:username/private-repo my-project
+gitit bitbucket:username/private-repo my-project
 ```
 
 Add this to your `.bashrc`, `.zshrc`, or equivalent shell configuration file for persistent access.
@@ -84,7 +84,7 @@ If you get authentication errors:
 To clone a specific branch from a private Bitbucket repository:
 
 ```bash
-gitit template bitbucket:username/private-repo#develop my-project --auth "your-app-password"
+gitit bitbucket:username/private-repo#develop my-project --auth "your-app-password"
 ```
 
 ### Cloning Subdirectories
@@ -92,7 +92,7 @@ gitit template bitbucket:username/private-repo#develop my-project --auth "your-a
 To clone only a specific subdirectory from a private repository:
 
 ```bash
-gitit template bitbucket:username/private-repo/path/to/directory my-project --auth "your-app-password"
+gitit bitbucket:username/private-repo/path/to/directory my-project --auth "your-app-password"
 ```
 
 ### Combined Branch and Subdirectory
@@ -100,7 +100,7 @@ gitit template bitbucket:username/private-repo/path/to/directory my-project --au
 You can specify both a branch and a subdirectory:
 
 ```bash
-gitit template bitbucket:username/private-repo/path/to/directory#develop my-project --auth "your-app-password"
+gitit bitbucket:username/private-repo/path/to/directory#develop my-project --auth "your-app-password"
 ```
 
 ## Configuration File
@@ -129,7 +129,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Clone Bitbucket template
-        run: gitit template bitbucket:username/private-repo my-project
+        run: gitit bitbucket:username/private-repo my-project
         env:
           GITIT_AUTH: ${{ secrets.BITBUCKET_APP_PASSWORD }}
 ```
