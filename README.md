@@ -67,6 +67,100 @@ gitit github:user/repo ./path/to/project
 | `--offline` | Do not attempt to download and use cached version |
 | `--prefer-offline` | Use cache if exists otherwise try to download |
 
+## Library Usage
+
+Gitit can also be used programmatically in your Node.js or Bun applications:
+
+```js
+import { downloadTemplate } from '@stacksjs/gitit'
+
+// Basic usage
+await downloadTemplate('github:user/repo')
+
+// With options
+const result = await downloadTemplate('github:user/repo', {
+  dir: './my-project',
+  force: true,
+  install: true,
+  offline: false,
+  preferOffline: true
+})
+
+console.log(`Downloaded to ${result.dir}`)
+```
+
+### API Reference
+
+#### `downloadTemplate(source, options)`
+
+The main function for downloading templates.
+
+- **source**: `string` - Template source (e.g., "github:user/repo")
+- **options**: `DownloadTemplateOptions` - Configuration options
+
+```ts
+interface DownloadTemplateOptions {
+  provider?: string // Specify provider (github, gitlab, etc.)
+  force?: boolean // Force clone even if directory exists
+  forceClean?: boolean // Remove existing directory before cloning
+  offline?: boolean // Use cached version only
+  preferOffline?: boolean // Prefer cache if exists
+  dir?: string // Target directory
+  registry?: false | string // Registry URL or false to disable
+  cwd?: string // Current working directory
+  auth?: string // Auth token for private repositories
+  install?: boolean // Install dependencies after download
+  silent?: boolean // Hide installation output
+  hooks?: Hooks // Custom lifecycle hooks
+}
+```
+
+#### Return value
+
+```ts
+interface DownloadTemplateResult {
+  dir: string // The directory where template was extracted
+  source: string // Original source string
+  name: string // Template name
+  tar: string // Tarball URL
+  version?: string // Template version
+  url?: string // Repository URL
+  // ... additional properties
+}
+```
+
+#### Advanced: Custom Plugins
+
+You can extend gitit's functionality using plugins:
+
+```js
+import { downloadTemplate } from '@stacksjs/gitit'
+
+const myPlugin = {
+  name: 'my-plugin',
+  version: '1.0.0',
+  hooks: {
+    afterExtract: (result) => {
+      console.log(`Template extracted to ${result.dir}`)
+      return result
+    }
+  },
+  providers: {
+    myCustomSource: (input, options) => {
+      // Custom template provider logic
+      return {
+        name: 'my-template',
+        tar: 'https://example.com/template.tar.gz'
+      }
+    }
+  }
+}
+
+await downloadTemplate('mycustom:template', {
+  plugins: [myPlugin]
+})
+```
+
 ## Changelog
 
 Please see our [releases](https://github.com/stackjs/gitit/releases) page for more information on what has changed recently.
@@ -87,7 +181,7 @@ For casual chit-chat with others using this package:
 
 ## Postcardware
 
-“Software that is free, but hopes for a postcard.” We love receiving postcards from around the world showing where Stacks is being used! We showcase them on our website too.
+"Software that is free, but hopes for a postcard." We love receiving postcards from around the world showing where Stacks is being used! We showcase them on our website too.
 
 Our address: Stacks.js, 12665 Village Ln #2306, Playa Vista, CA 90094, United States 🌎
 
