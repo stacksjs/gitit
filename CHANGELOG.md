@@ -1,4 +1,16 @@
 
+## v0.1.4...main
+
+[compare changes](https://github.com/stacksjs/gitit/compare/v0.1.4...main)
+
+### 🏡 Chore
+
+- Use zipped files ([fa9170e](https://github.com/stacksjs/gitit/commit/fa9170e))
+
+### ❤️ Contributors
+
+- Chris ([@chrisbbreuer](https://github.com/chrisbbreuer))
+
 ## v0.1.3...main
 
 [compare changes](https://github.com/stacksjs/gitit/compare/v0.1.3...main)
