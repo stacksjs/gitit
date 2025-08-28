@@ -1,3 +1,9 @@
+[Compare changes](https://github.com/stacksjs/gitit/compare/v0.2.1...HEAD)
+
+### Contributors
+
+- Adelino Ngomacha <adelinob335@gmail.com>
+- Chris <chrisbreuer93@gmail.com>
 
 ## v0.2.0...main
 
