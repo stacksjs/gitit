@@ -1,3 +1,5 @@
+#!/usr/bin/env bun
+
 import type { GitItOptions } from '../src/types'
 import { spawn } from 'node:child_process'
 import { relative } from 'node:path'
