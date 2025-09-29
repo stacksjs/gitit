@@ -1,5 +1,9 @@
 import type { GitItConfig } from './src/types'
+import { Logger } from '@stacksjs/clarity'
 import process from 'node:process'
+
+
+const logger = new Logger('gitit')
 
 // Configuration for gitit
 const config: GitItConfig = {
@@ -21,13 +25,13 @@ const config: GitItConfig = {
   hooks: {
     // Before downloading a template
     beforeDownload: (template, options) => {
-      console.log(`About to download template: ${template}`)
+      logger.info(`About to download template: ${template}`)
       return { template, options }
     },
 
     // After dependencies are installed
     afterInstall: async (result) => {
-      console.log('Dependencies installed, running custom logic...')
+      logger.info('Dependencies installed, running custom logic...')
       return result
     },
 
