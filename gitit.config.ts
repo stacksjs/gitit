@@ -1,7 +1,6 @@
 import type { GitItConfig } from './src/types'
-import { Logger } from '@stacksjs/clarity'
 import process from 'node:process'
-
+import { Logger } from '@stacksjs/clarity'
 
 const logger = new Logger('gitit')
 
