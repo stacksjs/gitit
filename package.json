@@ -71,7 +71,7 @@
     "typecheck": "bun --bun tsc --noEmit"
   },
   "dependencies": {
-    "nanotar": "^0.2.0"
+    "nanotar": "^0.3.0"
   },
   "devDependencies": {
     "@stacksjs/bumpx": "^0.2.4",
