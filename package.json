@@ -1,7 +1,7 @@
 {
   "name": "@stacksjs/gitit",
   "type": "module",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A simple way to programmatically download templates.",
   "author": "Chris Breuer <chris@stacksjs.org>",
   "license": "MIT",
@@ -61,10 +61,10 @@
     "test": "bun test",
     "lint": "bunx --bun pickier .",
     "lint:fix": "bunx --bun pickier . --fix",
-    "changelog": "bunx logsmith --verbose",
-    "changelog:generate": "bunx logsmith --output CHANGELOG.md",
-    "release": "bun run changelog:generate && bunx bumpx prompt --recursive",
-    "postinstall": "bunx git-hooks",
+    "changelog": "bunx --bun logsmith --verbose",
+    "changelog:generate": "bunx --bun logsmith --output CHANGELOG.md",
+    "release": "bun run changelog:generate && bunx --bun bumpx prompt --recursive",
+    "postinstall": "bunx --bun git-hooks",
     "dev:docs": "bun --bun bunpress dev docs",
     "build:docs": "bun --bun bunpress build docs",
     "preview:docs": "bun --bun bunpress preview docs",
@@ -85,6 +85,6 @@
         "*.{js,ts,json,yaml,yml,md}": "bunx --bun pickier lint --fix"
       }
     },
-    "commit-msg": "bunx gitlint --edit .git/COMMIT_EDITMSG"
+    "commit-msg": "bunx --bun gitlint --edit .git/COMMIT_EDITMSG"
   }
 }
