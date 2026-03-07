@@ -18,11 +18,21 @@ export const defaultConfig: GitItConfig = {
   plugins: [],
 }
 
-// eslint-disable-next-line antfu/no-top-level-await
-export const config: GitItConfig = await loadConfig({
+// Lazy-loaded config to avoid top-level await (enables bun --compile)
+let _config: GitItConfig | null = null
+
+export async function getConfig(): Promise<GitItConfig> {
+  if (!_config) {
+    _config = await loadConfig({
   name: 'gitit',
   defaultConfig,
 })
+  }
+  return _config
+}
+
+// For backwards compatibility - synchronous access with default fallback
+export const config: GitItConfig = defaultConfig
 
 /**
  * Load and register plugins from a configuration file
