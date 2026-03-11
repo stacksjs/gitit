@@ -21,12 +21,12 @@ export const defaultConfig: GitItConfig = {
 // Lazy-loaded config to avoid top-level await (enables bun --compile)
 let _config: GitItConfig | null = null
 
-export async function getConfig(): Promise<GitItConfig> {
+export async function getConfig(): Promise < GitItConfig> {
   if (!_config) {
-    _config = await loadConfig({
-  name: 'gitit',
-  defaultConfig,
-})
+    _config = await loadConfig( {
+      name: 'gitit',
+      defaultConfig,
+    })
   }
   return _config
 }
@@ -35,20 +35,20 @@ export async function getConfig(): Promise<GitItConfig> {
 export const config: GitItConfig = defaultConfig
 
 /**
- * Load and register plugins from a configuration file
- * @param plugins Array of plugins or plugin tuples with options
- * @returns Combined hooks from all plugins
- */
+* Load and register plugins from a configuration file
+* @param plugins Array of plugins or plugin tuples with options
+* @returns Combined hooks from all plugins
+*/
 export function loadPlugins(
-  plugins: (GitItPlugin | [GitItPlugin, Record<string, any>])[] = [],
-): { hooks: Hooks, providers: Record<string, any> } {
+plugins: (GitItPlugin | [GitItPlugin, Record < string, any>])[] = [],
+): { hooks: Hooks, providers: Record < string, any> } {
   const hooks: Hooks = {}
-  const providers: Record<string, any> = {}
+  const providers: Record < string, any> = {}
 
   for (const pluginEntry of plugins) {
     const [plugin, _options] = Array.isArray(pluginEntry)
-      ? pluginEntry
-      : [pluginEntry, {}]
+    ? pluginEntry
+    : [pluginEntry, {}]
 
     // Register plugin hooks
     if (plugin.hooks) {

@@ -9,7 +9,7 @@ gitit supports downloading templates from multiple source providers including Gi
 | GitHub | `github:` or `gh:` | `github:user/repo` |
 | GitLab | `gitlab:` or `gl:` | `gitlab:user/repo` |
 | Bitbucket | `bitbucket:` or `bb:` | `bitbucket:user/repo` |
-| Custom URL | (none) | `https://example.com/template.tar.gz` |
+| Custom URL | (none) | `<https://example.com/template.tar.gz>` |
 
 ## GitHub
 
@@ -260,6 +260,7 @@ gitit caches downloaded templates for faster subsequent downloads and offline su
 ### Cache Location
 
 Templates are cached in:
+
 - macOS/Linux: `~/.cache/gitit/`
 - Windows: `%LOCALAPPDATA%\gitit\cache\`
 

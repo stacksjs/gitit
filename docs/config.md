@@ -8,69 +8,91 @@ import type { GitItConfig } from '@stacksjs/gitit'
 
 const config: GitItConfig = {
   /**
-   * Whether to enable verbose logging.
-   * Default: true
+
+   _ Whether to enable verbose logging.
+   _ Default: true
+
    */
   verbose: true,
 
   /**
-   * Default directory to clone templates to if not specified.
-   * Default: './'
+
+   _ Default directory to clone templates to if not specified.
+   _ Default: './'
+
    */
   dir: './',
 
   /**
-   * Whether to clone to existing directory even if it exists.
-   * Default: false
+
+   _ Whether to clone to existing directory even if it exists.
+   _ Default: false
+
    */
   force: false,
 
   /**
-   * Whether to remove any existing directory or file recursively before cloning.
-   * Default: false
+
+   _ Whether to remove any existing directory or file recursively before cloning.
+   _ Default: false
+
    */
   forceClean: false,
 
   /**
-   * Whether to open a new shell with current working directory after cloning.
-   * Default: false
+
+   _ Whether to open a new shell with current working directory after cloning.
+   _ Default: false
+
    */
   shell: false,
 
   /**
-   * Whether to install dependencies after cloning.
-   * Default: true
+
+   _ Whether to install dependencies after cloning.
+   _ Default: true
+
    */
   install: true,
 
   /**
-   * Custom command to run after template is cloned.
-   * Default: ''
+
+   _ Custom command to run after template is cloned.
+   _ Default: ''
+
    */
   command: '',
 
   /**
-   * Custom Authorization token to use for downloading templates.
-   * Can be overridden with `GITIT_AUTH` environment variable.
-   * Default: ''
-   */
+
+   _ Custom Authorization token to use for downloading templates.
+   _ Can be overridden with `GITIT_AUTH` environment variable.
+   _ Default: ''
+
+   _/
   auth: '',
 
   /**
-   * Set current working directory to resolve dirs relative to it.
-   * Default: process.cwd()
+
+   _ Set current working directory to resolve dirs relative to it.
+   _ Default: process.cwd()
+
    */
   cwd: process.cwd(),
 
   /**
-   * Whether to use offline mode (don't attempt to download and use cached version).
-   * Default: false
+
+   _ Whether to use offline mode (don't attempt to download and use cached version).
+   _ Default: false
+
    */
   offline: false,
 
   /**
-   * Whether to prefer offline mode (use cache if exists otherwise try to download).
-   * Default: false
+
+   _ Whether to prefer offline mode (use cache if exists otherwise try to download).
+   _ Default: false
+
    */
   preferOffline: false,
 }

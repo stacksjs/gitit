@@ -20,7 +20,7 @@ Gitit is a powerful template and project scaffolding tool that helps you quickly
 | GitHub | `github:` | `github:user/repo` |
 | GitLab | `gitlab:` | `gitlab:user/repo` |
 | Bitbucket | `bitbucket:` | `bitbucket:user/repo` |
-| Custom | URL | `https://example.com/repo` |
+| Custom | URL | `<https://example.com/repo>` |
 
 ## Quick Example
 

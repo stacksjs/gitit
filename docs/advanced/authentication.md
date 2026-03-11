@@ -90,7 +90,7 @@ gitit gitlab:user/private-repo my-project
 Using environment variables is more secure than passing tokens directly in commands:
 
 ```bash
-# Add to your .bashrc, .zshrc, etc.
+# Add to your .bashrc, .zshrc, etc
 export GITIT_AUTH="your-access-token"
 ```
 
@@ -116,8 +116,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v3
       - name: Clone template
+
         run: gitit github:user/private-repo my-project
         env:
           GITIT_AUTH: ${{ secrets.GITHUB_TOKEN }}

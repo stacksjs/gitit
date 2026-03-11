@@ -14,15 +14,19 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v4
 
       - name: Setup Bun
+
         uses: oven-sh/setup-bun@v2
 
       - name: Download template
+
         run: bunx gitit stacksjs/starter ./my-app
 
       - name: Install dependencies
+
         run: cd my-app && bun install
 ```
 
@@ -36,12 +40,15 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v4
 
       - name: Setup Bun
+
         uses: oven-sh/setup-bun@v2
 
       - name: Cache gitit
+
         uses: actions/cache@v4
         with:
           path: ~/.cache/gitit
@@ -50,13 +57,16 @@ jobs:
             gitit-${{ runner.os }}-
 
       - name: Download template
+
         run: bunx gitit stacksjs/starter ./my-app --prefer-offline
 ```
 
 ### Private Repositories
 
 ```yaml
+
 - name: Download private template
+
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   run: bunx gitit private-org/private-template ./my-app
@@ -70,14 +80,22 @@ jobs:
     strategy:
       matrix:
         template:
+
           - name: api
+
             source: stacksjs/api-template
+
           - name: web
+
             source: stacksjs/web-template
+
           - name: mobile
+
             source: stacksjs/mobile-template
     steps:
+
       - run: bunx gitit ${{ matrix.template.source }} ./${{ matrix.template.name }}
+
 ```
 
 ### Composite Action
@@ -103,16 +121,20 @@ inputs:
 runs:
   using: composite
   steps:
+
     - name: Setup Bun
+
       uses: oven-sh/setup-bun@v2
 
     - name: Cache gitit
+
       uses: actions/cache@v4
       with:
         path: ~/.cache/gitit
         key: gitit-${{ runner.os }}
 
     - name: Download
+
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
@@ -122,7 +144,9 @@ runs:
 Usage:
 
 ```yaml
+
 - uses: ./.github/actions/gitit-download
+
   with:
     source: stacksjs/starter
     destination: ./my-app
@@ -135,16 +159,21 @@ Usage:
 
 ```yaml
 stages:
+
   - setup
 
 download-template:
   stage: setup
   image: oven/bun:latest
   script:
+
     - bunx gitit stacksjs/starter ./my-app
+
   artifacts:
     paths:
+
       - my-app/
+
 ```
 
 ### With Caching
@@ -156,11 +185,15 @@ download-template:
   cache:
     key: gitit-cache
     paths:
+
       - .cache/gitit/
+
   variables:
     GITIT_CACHE_DIR: .cache/gitit
   script:
+
     - bunx gitit stacksjs/starter ./my-app --prefer-offline
+
 ```
 
 ### Private Repositories
@@ -172,7 +205,9 @@ download-private:
   variables:
     GITLAB_TOKEN: $CI_JOB_TOKEN
   script:
+
     - bunx gitit gitlab:private-group/template ./my-app
+
 ```
 
 ## Bitbucket Pipelines
@@ -180,12 +215,17 @@ download-private:
 ```yaml
 pipelines:
   default:
+
     - step:
+
         name: Download Template
         image: oven/bun:latest
         caches:
+
           - gitit
+
         script:
+
           - bunx gitit bitbucket:org/template ./my-app
 
 definitions:
@@ -201,20 +241,30 @@ version: 2.1
 jobs:
   download-template:
     docker:
+
       - image: oven/bun:latest
+
     steps:
+
       - checkout
       - restore_cache:
+
           keys:
+
             - gitit-v1-{{ .Branch }}
             - gitit-v1-
       - run:
+
           name: Download template
           command: bunx gitit stacksjs/starter ./my-app --prefer-offline
+
       - save_cache:
+
           key: gitit-v1-{{ .Branch }}
           paths:
+
             - ~/.cache/gitit
+
 ```
 
 ## Jenkins
@@ -262,25 +312,31 @@ stage('Download Private Template') {
 
 ```yaml
 trigger:
+
   - main
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
+
   - task: UseNode@1
+
     inputs:
       version: '20.x'
 
   - script: npm install -g bun
+
     displayName: Install Bun
 
   - script: bunx gitit stacksjs/starter ./my-app
+
     displayName: Download Template
     env:
       GITHUB_TOKEN: $(GITHUB_TOKEN)
 
   - task: PublishPipelineArtifact@1
+
     inputs:
       targetPath: my-app
       artifact: project
@@ -341,22 +397,26 @@ jobs:
   scaffold:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v4
 
       - uses: oven-sh/setup-bun@v2
 
       - name: Download apps
+
         run: |
           bunx gitit stacksjs/api-template ./apps/api
           bunx gitit stacksjs/web-template ./apps/web
           bunx gitit stacksjs/mobile-template ./apps/mobile
 
       - name: Download packages
+
         run: |
           bunx gitit stacksjs/shared-types ./packages/types
           bunx gitit stacksjs/shared-utils ./packages/utils
 
       - name: Setup workspace
+
         run: |
           bun install
           bun run setup
@@ -372,11 +432,14 @@ jobs:
       matrix:
         environment: [development, staging, production]
     steps:
+
       - name: Download environment config
+
         run: |
           bunx gitit org/configs/${{ matrix.environment }} ./config
 
       - name: Deploy
+
         run: ./scripts/deploy.sh ${{ matrix.environment }}
 ```
 

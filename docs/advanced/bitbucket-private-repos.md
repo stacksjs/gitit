@@ -127,8 +127,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v3
       - name: Clone Bitbucket template
+
         run: gitit bitbucket:username/private-repo my-project
         env:
           GITIT_AUTH: ${{ secrets.BITBUCKET_APP_PASSWORD }}

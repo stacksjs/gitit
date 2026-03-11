@@ -261,7 +261,7 @@ async function processFile(file, variables) {
 
     // Replace variables in format {{ VARIABLE_NAME }}
     for (const [name, value] of Object.entries(variables)) {
-      const regex = new RegExp(`\\{\\{\\s*${name}\\s*\\}\\}`, 'g')
+      const regex = new RegExp(`\\{\\{\\s_${name}\\s_\\}\\}`, 'g')
       if (regex.test(content)) {
         content = content.replace(regex, value)
         changed = true

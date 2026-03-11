@@ -11,10 +11,10 @@ export interface GitItConfig {
   offline: boolean
   preferOffline: boolean
   hooks?: Hooks
-  plugins?: (GitItPlugin | [GitItPlugin, Record<string, any>])[]
+  plugins?: (GitItPlugin | [GitItPlugin, Record < string, any>])[]
 }
 
-export type GitItOptions = Partial<GitItConfig>
+export type GitItOptions = Partial < GitItConfig>
 
 export interface GitInfo {
   provider: 'github' | 'gitlab' | 'bitbucket' | 'sourcehut'
@@ -30,7 +30,7 @@ export interface TemplateInfo {
   subdir?: string
   url?: string
   defaultDir?: string
-  headers?: Record<string, string | undefined>
+  headers?: Record < string, string | undefined>
 
   // Added by giget
   source?: never
@@ -40,9 +40,9 @@ export interface TemplateInfo {
 }
 
 export type TemplateProvider = (
-  input: string,
-  options: { auth?: string },
-) => TemplateInfo | Promise<TemplateInfo> | null
+input: string,
+options: { auth?: string },
+) => TemplateInfo | Promise < TemplateInfo> | null
 
 // Hook Interfaces
 export interface ExtractOptions {
@@ -65,36 +65,36 @@ export interface DownloadTemplateResult {
   subdir?: string
   url?: string
   defaultDir?: string
-  headers?: Record<string, string | undefined>
+  headers?: Record < string, string | undefined>
   [key: string]: any
 }
 
 export type BeforeDownloadHook = (
-  template: string,
-  options: DownloadTemplateOptions
-) => Promise<{ template: string, options: DownloadTemplateOptions }> | { template: string, options: DownloadTemplateOptions }
+template: string,
+options: DownloadTemplateOptions
+) => Promise< { template: string, options: DownloadTemplateOptions }> | { template: string, options: DownloadTemplateOptions }
 
 export type AfterDownloadHook = (
-  result: DownloadTemplateResult
-) => Promise<DownloadTemplateResult> | DownloadTemplateResult
+result: DownloadTemplateResult
+) => Promise < DownloadTemplateResult> | DownloadTemplateResult
 
 export type BeforeExtractHook = (
-  result: DownloadTemplateResult,
-  extractOptions: ExtractOptions
-) => Promise<{ result: DownloadTemplateResult, extractOptions: ExtractOptions }> | { result: DownloadTemplateResult, extractOptions: ExtractOptions }
+result: DownloadTemplateResult,
+extractOptions: ExtractOptions
+) => Promise< { result: DownloadTemplateResult, extractOptions: ExtractOptions }> | { result: DownloadTemplateResult, extractOptions: ExtractOptions }
 
 export type AfterExtractHook = (
-  result: DownloadTemplateResult
-) => Promise<DownloadTemplateResult> | DownloadTemplateResult
+result: DownloadTemplateResult
+) => Promise < DownloadTemplateResult> | DownloadTemplateResult
 
 export type BeforeInstallHook = (
-  result: DownloadTemplateResult,
-  installOptions: InstallOptions
-) => Promise<{ result: DownloadTemplateResult, installOptions: InstallOptions }> | { result: DownloadTemplateResult, installOptions: InstallOptions }
+result: DownloadTemplateResult,
+installOptions: InstallOptions
+) => Promise< { result: DownloadTemplateResult, installOptions: InstallOptions }> | { result: DownloadTemplateResult, installOptions: InstallOptions }
 
 export type AfterInstallHook = (
-  result: DownloadTemplateResult
-) => Promise<DownloadTemplateResult> | DownloadTemplateResult
+result: DownloadTemplateResult
+) => Promise < DownloadTemplateResult> | DownloadTemplateResult
 
 export interface Hooks {
   beforeDownload?: BeforeDownloadHook
@@ -111,8 +111,8 @@ export interface GitItPlugin {
   version: string
   description?: string
   hooks?: Hooks
-  providers?: Record<string, TemplateProvider>
-  commands?: Record<string, any> // This would be defined based on your command system
+  providers?: Record < string, TemplateProvider>
+  commands?: Record < string, any> // This would be defined based on your command system
 }
 
 export interface DownloadTemplateOptions {
@@ -121,7 +121,7 @@ export interface DownloadTemplateOptions {
   forceClean?: boolean
   offline?: boolean
   preferOffline?: boolean
-  providers?: Record<string, TemplateProvider>
+  providers?: Record < string, TemplateProvider>
   dir?: string
   registry?: false | string
   cwd?: string

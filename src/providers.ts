@@ -1,6 +1,6 @@
 import type { TemplateInfo, TemplateProvider } from './types'
-import { basename } from 'node:path'
 import process from 'node:process'
+import { basename } from 'node:path'
 import { debug, parseGitURI, sendFetch } from './utils'
 
 const _httpJSON: TemplateProvider = async (input, options) => {
@@ -13,7 +13,7 @@ const _httpJSON: TemplateProvider = async (input, options) => {
   const info = (await result.json()) as TemplateInfo
   if (!info.tar || !info.name) {
     throw new Error(
-      `Invalid template info from ${input}. name or tar fields are missing!`,
+    `Invalid template info from ${input}. name or tar fields are missing!`,
     )
   }
   return info
@@ -40,9 +40,9 @@ export const http: TemplateProvider = async (input, options) => {
       return (await _httpJSON(input, options)) as TemplateInfo
     }
     const filename = head.headers
-      .get('content-disposition')
-      // eslint-disable-next-line regexp/optimal-quantifier-concatenation
-      ?.match(/filename="?(.+)"?/)?.[1]
+    .get('content-disposition')
+    // eslint-disable-next-line regexp/optimal-quantifier-concatenation
+    ?.match(/filename = '?(.+)'?/)?.[1]
     if (filename) {
       name = filename.split('.')[0]
     }
@@ -81,7 +81,7 @@ export const github: TemplateProvider = (input, options) => {
     },
     url: `${githubAPIURL.replace('api.github.com', 'github.com')}/${
       parsed.repo
-    }/tree/${parsed.ref}${parsed.subdir}`,
+    }/tree/$ {parsed.ref}$ {parsed.subdir}`,
     tar: `${githubAPIURL}/repos/${parsed.repo}/tarball/${parsed.ref}`,
   }
 }
@@ -131,7 +131,7 @@ export const sourcehut: TemplateProvider = (input, options) => {
   }
 }
 
-export const providers: Record<string, TemplateProvider> = {
+export const providers: Record < string, TemplateProvider> = {
   http,
   https: http,
   github,

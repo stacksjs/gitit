@@ -168,6 +168,7 @@ gitit github:user/repo my-project --command "bun run setup"
 ### Rate Limiting
 
 GitHub has API rate limits. For authenticated requests:
+
 - 5,000 requests/hour with token
 - 60 requests/hour without token
 

@@ -1,22 +1,22 @@
 import type { Agent } from 'node:http'
 import type { GitInfo } from './types'
+import process from 'node:process'
 import { spawnSync } from 'node:child_process'
 import { createWriteStream, existsSync, renameSync } from 'node:fs'
 import { readFile, writeFile } from 'node:fs/promises'
 import { homedir, tmpdir } from 'node:os'
 import { relative, resolve } from 'node:path'
-import process from 'node:process'
 import { pipeline } from 'node:stream'
 import { promisify } from 'node:util'
 
 export async function download(
-  url: string,
-  filePath: string,
-  options: { headers?: Record<string, string | undefined> } = {},
-): Promise<void> {
+url: string,
+filePath: string,
+options: { headers?: Record < string, string | undefined> } = {},
+): Promise < void> {
   const infoPath = `${filePath}.json`
   const info: { etag?: string } = JSON.parse(
-    await readFile(infoPath, 'utf8').catch(() => '{}'),
+  await readFile(infoPath, 'utf8').catch(() => '{}'),
   )
   const headResponse = await sendFetch(url, {
     method: 'HEAD',
@@ -34,7 +34,7 @@ export async function download(
   const response = await sendFetch(url, { headers: options.headers })
   if (response.status >= 400) {
     throw new Error(
-      `Failed to download ${url}: ${response.status} ${response.statusText}`,
+    `Failed to download ${url}: ${response.status} ${response.statusText}`,
     )
   }
 
@@ -45,11 +45,11 @@ export async function download(
 }
 
 // eslint-disable-next-line regexp/no-misleading-capturing-group
-const inputRegex = /^(?<repo>[\w.-]+\/[\w.-]+)(?<subdir>[^#]+)?(?<ref>#[\w./@-]+)?/
+const inputRegex = /^(?<repo > [\w.-]+\/[\w.-]+)(?<subdir > [^#]+)?(?<ref>#[\w./@-]+)?/
 
 export function parseGitURI(input: string): GitInfo {
   const m = input.match(inputRegex)?.groups || {}
-  return <GitInfo>{
+  return <GitInfo> {
     repo: m.repo,
     subdir: m.subdir || '/',
     ref: m.ref ? m.ref.slice(1) : 'main',
@@ -63,16 +63,16 @@ export function debug(...args: unknown[]): void {
   }
 }
 
-interface InternalFetchOptions extends Omit<RequestInit, 'headers'> {
-  headers?: Record<string, string | undefined>
+interface InternalFetchOptions extends Omit < RequestInit, 'headers'> {
+  headers?: Record < string, string | undefined>
   agent?: Agent
   validateStatus?: boolean
 }
 
 export async function sendFetch(
-  url: string,
-  options: InternalFetchOptions = {},
-): Promise<Response> {
+url: string,
+options: InternalFetchOptions = {},
+): Promise < Response> {
   // https://github.com/nodejs/undici/issues/1305
   if (options.headers?.['sec-fetch-mode']) {
     options.mode = options.headers['sec-fetch-mode'] as any
@@ -94,8 +94,8 @@ export async function sendFetch(
 
 export function cacheDirectory(): string {
   const cacheDir = process.env.XDG_CACHE_HOME
-    ? resolve(process.env.XDG_CACHE_HOME, 'gitit')
-    : resolve(homedir(), '.cache/gitit')
+  ? resolve(process.env.XDG_CACHE_HOME, 'gitit')
+  : resolve(homedir(), '.cache/gitit')
 
   if (process.platform === 'win32') {
     const windowsCacheDir = resolve(tmpdir(), 'gitit')
@@ -117,9 +117,9 @@ export function cacheDirectory(): string {
 }
 
 export function normalizeHeaders(
-  headers: Record<string, string | undefined> = {},
-): Record<string, string> {
-  const normalized: Record<string, string> = {}
+headers: Record < string, string | undefined> = {},
+): Record < string, string> {
+  const normalized: Record < string, string> = {}
   for (const [key, value] of Object.entries(headers)) {
     if (!value) {
       continue

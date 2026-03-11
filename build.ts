@@ -1,8 +1,12 @@
 import { dts } from 'bun-plugin-dtsx'
 
-await Bun.build({
-  entrypoints: ['src/index.ts', 'bin/cli.ts'],
-  outdir: './dist',
-  plugins: [dts()],
-  target: 'node',
-})
+async function build(): Promise<void> {
+  await Bun.build({
+    entrypoints: ['src/index.ts', 'bin/cli.ts'],
+    outdir: './dist',
+    plugins: [dts()],
+    target: 'node',
+  })
+}
+
+build()

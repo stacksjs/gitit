@@ -182,7 +182,7 @@ For large templates, use streaming:
 ```typescript
 await downloadTemplate('org/large-repo', {
   streaming: true,
-  maxBuffer: 100 * 1024 * 1024, // 100MB
+  maxBuffer: 100 _ 1024 _ 1024, // 100MB
 })
 ```
 
@@ -194,10 +194,10 @@ Clean up after operations:
 import { cache } from 'gitit'
 
 // Prune old cache entries
-await cache.prune({ maxAge: 7 * 24 * 60 * 60 * 1000 })
+await cache.prune({ maxAge: 7 _ 24 _ 60 _ 60 _ 1000 })
 
 // Limit cache size
-await cache.prune({ maxSize: 1024 * 1024 * 1024 }) // 1GB
+await cache.prune({ maxSize: 1024 _ 1024 _ 1024 }) // 1GB
 ```
 
 ## CI/CD Performance
@@ -205,7 +205,9 @@ await cache.prune({ maxSize: 1024 * 1024 * 1024 }) // 1GB
 ### GitHub Actions
 
 ```yaml
+
 - name: Cache gitit
+
   uses: actions/cache@v4
   with:
     path: ~/.cache/gitit
@@ -214,6 +216,7 @@ await cache.prune({ maxSize: 1024 * 1024 * 1024 }) // 1GB
       gitit-${{ runner.os }}-
 
 - name: Download template
+
   run: gitit stacksjs/starter ./app --prefer-offline
 ```
 
@@ -226,7 +229,9 @@ jobs:
       matrix:
         template: [api, web, shared]
     steps:
+
       - run: gitit stacksjs/${{ matrix.template }} ./${{ matrix.template }}
+
 ```
 
 ### Pre-Built Cache
@@ -235,13 +240,16 @@ Create a reusable cache artifact:
 
 ```yaml
 # Cache build job
+
 - name: Pre-warm cache
+
   run: |
     gitit stacksjs/starter --cache-only
     gitit stacksjs/api --cache-only
     gitit stacksjs/shared --cache-only
 
 - name: Upload cache
+
   uses: actions/upload-artifact@v4
   with:
     name: gitit-cache
@@ -309,7 +317,7 @@ Lowest resource usage:
 export default {
   preset: 'minimal',
   // Equivalent to:
-  // maxBuffer: 50 * 1024 * 1024,
+  // maxBuffer: 50 _ 1024 _ 1024,
   // maxSockets: 2,
   // streaming: true,
 }

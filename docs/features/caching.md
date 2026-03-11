@@ -137,7 +137,7 @@ await cache.clear()
 await cache.remove('stacksjs/starter')
 
 // Prune old entries
-await cache.prune({ maxAge: 7 * 24 * 60 * 60 * 1000 })
+await cache.prune({ maxAge: 7 _ 24 _ 60 _ 60 _ 1000 })
 ```
 
 ## Cache Strategies
@@ -160,13 +160,16 @@ Speed up CI builds with caching:
 
 ```yaml
 # GitHub Actions
+
 - name: Cache gitit templates
+
   uses: actions/cache@v4
   with:
     path: ~/.cache/gitit
     key: gitit-${{ hashFiles('**/package.json') }}
 
 - name: Download template
+
   run: gitit stacksjs/starter ./app --prefer-offline
 ```
 
@@ -213,13 +216,13 @@ View download and cache statistics:
 # Show hit/miss statistics
 gitit stats
 
-# Output:
-# Cache Statistics:
-#   Total downloads: 150
-#   Cache hits: 120 (80%)
-#   Cache misses: 30 (20%)
-#   Cache size: 245 MB
-#   Oldest entry: 30 days ago
+# Output
+# Cache Statistics
+# Total downloads: 150
+# Cache hits: 120 (80%)
+# Cache misses: 30 (20%)
+# Cache size: 245 MB
+# Oldest entry: 30 days ago
 ```
 
 ## Troubleshooting

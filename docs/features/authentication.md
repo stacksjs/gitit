@@ -130,9 +130,11 @@ jobs:
   download:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v4
 
       - name: Download private template
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -144,8 +146,10 @@ jobs:
 ```yaml
 download-template:
   script:
+
     - export GITLAB_TOKEN=$CI_JOB_TOKEN
     - npx gitit gitlab:private-org/template ./my-app
+
 ```
 
 ### Bitbucket Pipelines
@@ -153,10 +157,14 @@ download-template:
 ```yaml
 pipelines:
   default:
+
     - step:
+
         script:
+
           - export BITBUCKET_TOKEN=$BITBUCKET_APP_PASSWORD
           - npx gitit bitbucket:private-org/template ./my-app
+
 ```
 
 ## Security Best Practices

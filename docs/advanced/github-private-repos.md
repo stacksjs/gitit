@@ -18,8 +18,8 @@ To access private repositories, you'll need a Personal Access Token:
 2. Click on your profile picture in the top-right corner
 3. Select **Settings** from the dropdown menu
 4. Scroll down to the bottom of the left sidebar and click on **Developer settings**
-5. Click on **Personal access tokens** → **Tokens (classic)**
-6. Click **Generate new token** → **Generate new token (classic)**
+5. Click on **Personal access tokens**→**Tokens (classic)**
+6. Click **Generate new token**→**Generate new token (classic)**
 7. Give your token a descriptive name (e.g., "gitit Access")
 8. Select the following scopes:
    - **repo** (Full control of private repositories)
@@ -142,8 +142,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v3
       - name: Clone GitHub template
+
         run: gitit github:username/private-repo my-project
         env:
           GITIT_AUTH: ${{ secrets.GITHUB_TOKEN }}

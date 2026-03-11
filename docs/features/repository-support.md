@@ -45,7 +45,7 @@ GitHub repositories use the GitHub API to download templates:
 gitit github:user/repo my-project
 ```
 
-This will download the repository using the GitHub API URL: `https://api.github.com/repos/user/repo/tarball/main`
+This will download the repository using the GitHub API URL: `<https://api.github.com/repos/user/repo/tarball/main>`
 
 ### GitLab
 
@@ -55,7 +55,7 @@ GitLab repositories are downloaded directly from the GitLab archive endpoint:
 gitit gitlab:user/repo my-project
 ```
 
-This will download the repository from: `https://gitlab.com/user/repo/-/archive/main.tar.gz`
+This will download the repository from: `<https://gitlab.com/user/repo/-/archive/main.tar.gz>`
 
 ### Bitbucket
 
@@ -65,7 +65,7 @@ Bitbucket repositories use Bitbucket's archive endpoint:
 gitit bitbucket:user/repo my-project
 ```
 
-This will download from: `https://bitbucket.org/user/repo/get/main.tar.gz`
+This will download from: `<https://bitbucket.org/user/repo/get/main.tar.gz>`
 
 ### SourceHut
 
@@ -75,7 +75,7 @@ SourceHut repositories use SourceHut's archive endpoint:
 gitit sourcehut:user/repo my-project
 ```
 
-This will download from: `https://git.sr.ht/~user/repo/archive/main.tar.gz`
+This will download from: `<https://git.sr.ht/~user/repo/archive/main.tar.gz>`
 
 ### HTTP/HTTPS URLs
 

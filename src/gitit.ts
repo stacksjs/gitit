@@ -1,9 +1,9 @@
 import type { DownloadTemplateOptions, DownloadTemplateResult, ExtractOptions as GitItExtractOptions, Hooks, InstallOptions, TemplateProvider } from './types'
+import process from 'node:process'
 import { spawn } from 'node:child_process'
 import { existsSync, readdirSync } from 'node:fs'
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
-import process from 'node:process'
 import { gunzipSync } from 'node:zlib'
 import defu from 'defu'
 import { parseTar } from 'nanotar'
@@ -11,13 +11,12 @@ import { providers } from './providers'
 import { registryProvider } from './registry'
 import { cacheDirectory, debug, download, normalizeHeaders } from './utils'
 
-// eslint-disable-next-line regexp/strict
 const sourceProtoRe = /^([\w-.]+):/
 
 /**
- * Install dependencies for a template
- */
-async function installDependencies(options: InstallOptions): Promise<void> {
+* Install dependencies for a template
+*/
+async function installDependencies(options: InstallOptions): Promise < void> {
   debug(`Installing dependencies in ${options.cwd}`)
 
   // Detect package manager based on lock files
@@ -60,9 +59,9 @@ async function installDependencies(options: InstallOptions): Promise<void> {
 }
 
 /**
- * Extract a tarball using nanotar (cross-platform)
- */
-async function extractTar(options: GitItExtractOptions): Promise<void> {
+* Extract a tarball using nanotar (cross - platform)
+*/
+async function extractTar(options: GitItExtractOptions): Promise < void> {
   const { file, cwd, onentry } = options
 
   debug(`Extracting tarball ${file} to ${cwd}`)
@@ -148,8 +147,8 @@ async function extractTar(options: GitItExtractOptions): Promise<void> {
 }
 
 /**
- * Load hooks from config and plugins
- */
+* Load hooks from config and plugins
+*/
 function loadHooks(options: DownloadTemplateOptions = {}): Hooks {
   const hooks: Hooks = {}
 
@@ -157,8 +156,8 @@ function loadHooks(options: DownloadTemplateOptions = {}): Hooks {
   if ('plugins' in options && Array.isArray(options.plugins)) {
     for (const pluginItem of options.plugins) {
       const [plugin, _pluginOptions] = Array.isArray(pluginItem)
-        ? pluginItem
-        : [pluginItem, {}]
+      ? pluginItem
+      : [pluginItem, {}]
 
       if (plugin.hooks) {
         for (const [hookName, hookFn] of Object.entries(plugin.hooks)) {
@@ -181,17 +180,17 @@ function loadHooks(options: DownloadTemplateOptions = {}): Hooks {
 }
 
 /**
- * Load providers from config and plugins
- */
-function loadProviders(options: DownloadTemplateOptions = {}): Record<string, TemplateProvider> {
-  const customProviders: Record<string, TemplateProvider> = { ...providers }
+* Load providers from config and plugins
+*/
+function loadProviders(options: DownloadTemplateOptions = {}): Record < string, TemplateProvider> {
+  const customProviders: Record < string, TemplateProvider> = { ...providers }
 
   // Add providers from plugins
   if ('plugins' in options && Array.isArray(options.plugins)) {
     for (const pluginItem of options.plugins) {
       const [plugin, _pluginOptions] = Array.isArray(pluginItem)
-        ? pluginItem
-        : [pluginItem, {}]
+      ? pluginItem
+      : [pluginItem, {}]
 
       if (plugin.providers) {
         for (const [providerName, providerFn] of Object.entries(plugin.providers)) {
@@ -212,15 +211,15 @@ function loadProviders(options: DownloadTemplateOptions = {}): Record<string, Te
 }
 
 export async function downloadTemplate(
-  input: string,
-  options: DownloadTemplateOptions = {},
-): Promise<DownloadTemplateResult> {
+input: string,
+options: DownloadTemplateOptions = {},
+): Promise < DownloadTemplateResult> {
   options = defu(
-    {
-      registry: process.env.GITIT_REGISTRY,
-      auth: process.env.GITIT_AUTH,
-    },
-    options,
+  {
+    registry: process.env.GITIT_REGISTRY,
+    auth: process.env.GITIT_AUTH,
+  },
+  options,
   ) as DownloadTemplateOptions
 
   // Load hooks
@@ -238,12 +237,12 @@ export async function downloadTemplate(
   }
 
   const registry
-    = options.registry === false
-      ? undefined
-      : registryProvider(options.registry, { auth: options.auth })
+   = options.registry === false
+  ? undefined
+  : registryProvider(options.registry, { auth: options.auth })
 
   let providerName: string
-    = options.provider || (registry ? 'registry' : 'github')
+   = options.provider || (registry ? 'registry' : 'github')
 
   let source: string = input
   const sourceProviderMatch = input.match(sourceProtoRe)
@@ -260,33 +259,33 @@ export async function downloadTemplate(
     throw new Error(`Unsupported provider: ${providerName}`)
   }
   const template = await Promise.resolve()
-    .then(() => provider(source, { auth: options.auth }))
-    .catch((error) => {
-      throw new Error(
-        `Failed to download template from ${providerName}: ${error.message}`,
-      )
-    })
+  .then(() => provider(source, { auth: options.auth }))
+  .catch((error) => {
+    throw new Error(
+    `Failed to download template from ${providerName}: ${error.message}`,
+    )
+  })
 
   if (!template) {
     throw new Error(`Failed to resolve template from ${providerName}`)
   }
 
   // Sanitize name and defaultDir
-  template.name = (template.name || 'template').replace(/[^\da-z-]/gi, '-')
+  template.name = (template.name || 'template').replace(/[^\da - z-]/gi, '-')
   template.defaultDir = (template.defaultDir || template.name).replace(
-    /[^\da-z-]/gi,
-    '-',
+  /[^\da - z-]/gi,
+  '-',
   )
 
   // Download template source
   const temporaryDirectory = resolve(
-    cacheDirectory(),
-    providerName,
-    template.name,
+  cacheDirectory(),
+  providerName,
+  template.name,
   )
   const tarPath = resolve(
-    temporaryDirectory,
-    `${template.version || template.name}.tar.gz`,
+  temporaryDirectory,
+  `${template.version || template.name}.tar.gz`,
   )
 
   if (options.preferOffline && existsSync(tarPath)) {
@@ -313,7 +312,7 @@ export async function downloadTemplate(
 
   if (!existsSync(tarPath)) {
     throw new Error(
-      `Tarball not found: ${tarPath} (offline: ${options.offline})`,
+    `Tarball not found: ${tarPath} (offline: ${options.offline})`,
     )
   }
 
@@ -336,9 +335,9 @@ export async function downloadTemplate(
     await rm(extractPath, { recursive: true, force: true })
   }
   if (
-    !options.force
-    && existsSync(extractPath)
-    && readdirSync(extractPath).length > 0
+  !options.force
+  && existsSync(extractPath)
+  && readdirSync(extractPath).length > 0
   ) {
     throw new Error(`Destination ${extractPath} already exists.`)
   }
