@@ -2,7 +2,7 @@
 
 ## About
 
-A simple way to programmatically download templates.
+gitit is a template and project scaffolding tool that clones templates from GitHub, GitLab, Bitbucket, and other providers. It supports offline caching, private repository authentication, post-install commands, and a plugin system for custom providers and lifecycle hooks. Available as both a CLI (`gitit github:user/repo my-project`) and a library (`downloadTemplate()`).
 
 ## Linting
 
