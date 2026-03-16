@@ -21,8 +21,8 @@ Bitbucket uses App Passwords for API authentication. To create one:
 5. Click the **Create app password** button
 6. Give your app password a descriptive name (e.g., "gitit Access")
 7. Select the following permissions:
-   - **Repository**: Read
-   - **Pull requests**: Read (optional)
+  - **Repository**: Read
+  - **Pull requests**: Read (optional)
 8. Click **Create**
 9. **Important**: Copy your app password immediately. You won't be able to see it again!
 

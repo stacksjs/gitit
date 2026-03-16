@@ -22,8 +22,8 @@ To access private repositories, you'll need a Personal Access Token:
 6. Click **Generate new token**→**Generate new token (classic)**
 7. Give your token a descriptive name (e.g., "gitit Access")
 8. Select the following scopes:
-   - **repo** (Full control of private repositories)
-   - **read:packages** (Optional - if you need to access template packages)
+  - **repo** (Full control of private repositories)
+  - **read:packages** (Optional - if you need to access template packages)
 9. Click **Generate token**
 10. **Important**: Copy your token immediately. You won't be able to see it again!
 

@@ -1,10 +1,8 @@
 <p align="center"><img src="https://github.com/stacksjs/gitit/blob/main/.github/art/cover.jpg?raw=true" alt="Social Card of this repo"></p>
 
-# Easy Project Scaffolding
+# gitit
 
 > A powerful template and project scaffolding tool to help kick-start development of your next project.
-
-# gitit
 
 Gitit is a modern template and project scaffolding tool designed to help you initialize new projects quickly and efficiently.
 
@@ -36,7 +34,7 @@ gitit github:user/repo my-project
 gitit github:user/repo my-project --install --shell
 ```
 
-_Check out the Usage section for more advanced examples._
+Check out the Usage section for more advanced examples.
 
 ## Changelog
 
@@ -86,5 +84,4 @@ Made with 💙
 
 <!-- Badges -->
 
-<!-- [codecov-src]: https://img.shields.io/codecov/c/gh/stacksjs/rpx/main?style=flat-square
-[codecov-href]: https://codecov.io/gh/stacksjs/rpx -->
+<!-- [codecov-src]: https://img.shields.io/codecov/c/gh/stacksjs/rpx/main?style=flat-square -->

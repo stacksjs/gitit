@@ -61,7 +61,7 @@ await downloadTemplate('private-org/private-repo', {
 1. Go to [GitHub Settings > Developer Settings > Personal Access Tokens](https://github.com/settings/tokens)
 2. Click "Generate new token (classic)"
 3. Select scopes:
-   - `repo` - Full control of private repositories
+  - `repo` - Full control of private repositories
 4. Copy the generated token
 
 ```bash
@@ -76,14 +76,14 @@ For more security, use fine-grained tokens:
 1. Go to [GitHub Settings > Developer Settings > Fine-grained tokens](https://github.com/settings/tokens?type=beta)
 2. Select the repository or organization
 3. Set permissions:
-   - Repository permissions > Contents > Read-only
+  - Repository permissions > Contents > Read-only
 4. Generate and copy token
 
 ### GitLab Personal Access Token
 
 1. Go to [GitLab Settings > Access Tokens](https://gitlab.com/-/profile/personal_access_tokens)
 2. Create a new token with:
-   - `read_repository` scope
+  - `read_repository` scope
 3. Copy the generated token
 
 ```bash
@@ -95,7 +95,7 @@ gitit gitlab:private-org/private-repo
 
 1. Go to [Bitbucket Settings > App passwords](https://bitbucket.org/account/settings/app-passwords/)
 2. Create an app password with:
-   - `Repositories: Read` permission
+  - `Repositories: Read` permission
 3. Use format `username:app_password`
 
 ```bash

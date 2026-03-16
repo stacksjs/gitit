@@ -28,7 +28,7 @@ To create a custom template, simply create a Git repository with the files and s
 
 You can add template variables to your files that will be processed during project creation:
 
-```
+```json
 // package.json
 {
   "name": "{{ project_name }}",

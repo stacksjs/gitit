@@ -100,7 +100,7 @@ const config: GitItConfig = {
 export default config
 ```
 
-_Then run:_
+Then run:
 
 ```bash
 gitit github:user/repo my-project
