@@ -79,9 +79,9 @@ GitHub API has rate limits. With authentication, these limits are higher but sti
 1. **Use token authentication**: Authenticated requests have higher rate limits
 2. **Check your rate limit status**: You can check your current rate limit status with:
 
-   ```bash
-   curl -H "Authorization: Bearer your-token" https://api.github.com/rate_limit
-   ```
+  ```bash
+  curl -H "Authorization: Bearer your-token" https://api.github.com/rate_limit
+  ```
 
 ## Advanced Usage
 

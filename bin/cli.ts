@@ -100,7 +100,7 @@ cli
 })
 
 cli.command('version', 'Show the version of the CLI').action(() => {
-  console.log(version)
+  process.stdout.write(`${version}\n`)
 })
 
 cli.version(version)

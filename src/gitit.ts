@@ -236,13 +236,11 @@ options: DownloadTemplateOptions = {},
     options = hookResult.options
   }
 
-  const registry
-   = options.registry === false
-  ? undefined
-  : registryProvider(options.registry, { auth: options.auth })
+  const registry = options.registry === false
+    ? undefined
+    : registryProvider(options.registry, { auth: options.auth })
 
-  let providerName: string
-   = options.provider || (registry ? 'registry' : 'github')
+  let providerName: string = options.provider || (registry ? 'registry' : 'github')
 
   let source: string = input
   const sourceProviderMatch = input.match(sourceProtoRe)
