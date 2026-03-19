@@ -4,12 +4,12 @@ import type { GitItOptions } from '../src/types'
 import { spawn } from 'node:child_process'
 import { relative } from 'node:path'
 import process from 'node:process'
-import { CAC } from 'cac'
+import { CLI } from '@stacksjs/clapp'
 import { version } from '../package.json'
 import { downloadTemplate } from '../src/gitit'
 import { startShell } from '../src/utils'
 
-const cli = new CAC('gitit')
+const cli = new CLI('gitit')
 
 cli
 .command('[template] [dir]', 'Clone a template from a repository')

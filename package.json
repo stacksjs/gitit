@@ -72,9 +72,6 @@
     "format": "bunx --bun pickier . --format",
     "format:fix": "bunx --bun pickier . --format --write"
   },
-  "dependencies": {
-    "nanotar": "^0.2.0"
-  },
   "devDependencies": {
     "better-dx": "^0.2.7",
     "bunfig": "^0.15.6"

@@ -5,8 +5,6 @@ import { existsSync, readdirSync } from 'node:fs'
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 import { gunzipSync } from 'node:zlib'
-import defu from 'defu'
-import { parseTar } from 'nanotar'
 import { providers } from './providers'
 import { registryProvider } from './registry'
 import { cacheDirectory, debug, download, normalizeHeaders } from './utils'
@@ -58,8 +56,81 @@ async function installDependencies(options: InstallOptions): Promise < void> {
   })
 }
 
+export interface TarEntry {
+  name: string
+  type: 'file' | 'directory'
+  size: number
+  data?: Uint8Array
+}
+
 /**
-* Extract a tarball using nanotar (cross - platform)
+ * Parse a tar archive buffer into entries (POSIX ustar + GNU long name support)
+ */
+export function parseTar(data: Uint8Array): TarEntry[] {
+  const entries: TarEntry[] = []
+  let offset = 0
+  const decoder = new TextDecoder()
+  let longName: string | null = null
+
+  while (offset + 512 <= data.length) {
+    const header = data.subarray(offset, offset + 512)
+
+    // End of archive: zero block
+    let allZero = true
+    for (let i = 0; i < 512; i++) {
+      if (header[i] !== 0) {
+        allZero = false
+        break
+      }
+    }
+    if (allZero)
+      break
+
+    const nameRaw = decoder.decode(header.subarray(0, 100)).replace(/\0.*$/, '')
+    const prefix = decoder.decode(header.subarray(345, 500)).replace(/\0.*$/, '')
+    const sizeStr = decoder.decode(header.subarray(124, 136)).replace(/\0.*$/, '').trim()
+    const size = sizeStr ? Number.parseInt(sizeStr, 8) : 0
+    const typeflag = String.fromCharCode(header[156]!)
+
+    offset += 512
+    const dataBlocks = Math.ceil(size / 512) * 512
+
+    // GNU long name extension
+    if (typeflag === 'L') {
+      longName = decoder.decode(data.subarray(offset, offset + size)).replace(/\0.*$/, '')
+      offset += dataBlocks
+      continue
+    }
+
+    // Pax extended header — extract path if present
+    if (typeflag === 'x' || typeflag === 'g') {
+      const paxData = decoder.decode(data.subarray(offset, offset + size))
+      const pathMatch = paxData.match(/\d+ path=(.+)\n/)
+      if (pathMatch)
+        longName = pathMatch[1]!
+      offset += dataBlocks
+      continue
+    }
+
+    const name = longName ?? (prefix ? `${prefix}/${nameRaw}` : nameRaw)
+    longName = null
+
+    if (typeflag === '5') {
+      entries.push({ name, type: 'directory', size })
+    }
+    else if (typeflag === '0' || typeflag === '\0' || typeflag === '') {
+      const fileData = size > 0 ? data.slice(offset, offset + size) : undefined
+      entries.push({ name, type: 'file', size, data: fileData })
+    }
+
+    offset += dataBlocks
+  }
+
+  return entries
+}
+
+/**
+* Extract a tarball (cross-platform)
 */
 async function extractTar(options: GitItExtractOptions): Promise < void> {
   const { file, cwd, onentry } = options
@@ -214,13 +285,11 @@ export async function downloadTemplate(
 input: string,
 options: DownloadTemplateOptions = {},
 ): Promise < DownloadTemplateResult> {
-  options = defu(
-  {
-    registry: process.env.GITIT_REGISTRY,
-    auth: process.env.GITIT_AUTH,
-  },
-  options,
-  ) as DownloadTemplateOptions
+  options = {
+    ...options,
+    registry: process.env.GITIT_REGISTRY ?? options.registry,
+    auth: process.env.GITIT_AUTH ?? options.auth,
+  } as DownloadTemplateOptions
 
   // Load hooks
   const hooks = loadHooks(options)
