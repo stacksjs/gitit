@@ -1,3 +1,26 @@
+[Compare changes](https://github.com/stacksjs/gitit/compare/v0.2.4...v0.2.5)
+
+### 🧹 Chores
+
+- release v0.2.5 ([358d446](https://github.com/stacksjs/gitit/commit/358d446)) _(by Chris <chrisbreuer93@gmail.com>)_
+- add several minor improvements ([6b09a1f](https://github.com/stacksjs/gitit/commit/6b09a1f)) _(by Chris <chrisbreuer93@gmail.com>)_
+- use Pantry action for publish-commit and add job dependencies ([d1a6803](https://github.com/stacksjs/gitit/commit/d1a6803)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+### Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+
+[Compare changes](https://github.com/stacksjs/gitit/compare/v0.2.4...HEAD)
+
+### 🧹 Chores
+
+- add several minor improvements ([6b09a1f](https://github.com/stacksjs/gitit/commit/6b09a1f)) _(by Chris <chrisbreuer93@gmail.com>)_
+- use Pantry action for publish-commit and add job dependencies ([d1a6803](https://github.com/stacksjs/gitit/commit/d1a6803)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+### Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+
 [Compare changes](https://github.com/stacksjs/gitit/compare/v0.2.3...v0.2.4)
 
 ### 🧹 Chores
