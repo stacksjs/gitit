@@ -1,3 +1,48 @@
+[Compare changes](https://github.com/stacksjs/gitit/compare/v0.2.3...v0.2.4)
+
+### 🧹 Chores
+
+- release v0.2.4 ([b1d895d](https://github.com/stacksjs/gitit/commit/b1d895d)) _(by Chris <chrisbreuer93@gmail.com>)_
+- minor adjustments ([ada0fd3](https://github.com/stacksjs/gitit/commit/ada0fd3)) _(by Chris <chrisbreuer93@gmail.com>)_
+- fix lint warnings ([e5a6769](https://github.com/stacksjs/gitit/commit/e5a6769)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- fix lint warnings ([844f794](https://github.com/stacksjs/gitit/commit/844f794)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- fix lint warnings ([36606bc](https://github.com/stacksjs/gitit/commit/36606bc)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- remove .pickierignore ([5d5dab8](https://github.com/stacksjs/gitit/commit/5d5dab8)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- update better-dx to ^0.2.7 ([3ce72ca](https://github.com/stacksjs/gitit/commit/3ce72ca)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- enrich CLAUDE.md with detailed project context from README ([2674fd9](https://github.com/stacksjs/gitit/commit/2674fd9)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- update CLAUDE.md with project context and crosswind details ([d3c9ae5](https://github.com/stacksjs/gitit/commit/d3c9ae5)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- add proper claude code guidelines ([eb2b94c](https://github.com/stacksjs/gitit/commit/eb2b94c)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- ignore claude config in linter ([0ab43aa](https://github.com/stacksjs/gitit/commit/0ab43aa)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- add claude code guidelines ([9e2d53b](https://github.com/stacksjs/gitit/commit/9e2d53b)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- fix lint errors ([1d3ae58](https://github.com/stacksjs/gitit/commit/1d3ae58)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+### Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+- _glennmichael123 <gtorregosa@gmail.com>_
+
+[Compare changes](https://github.com/stacksjs/gitit/compare/v0.2.3...HEAD)
+
+### 🧹 Chores
+
+- minor adjustments ([ada0fd3](https://github.com/stacksjs/gitit/commit/ada0fd3)) _(by Chris <chrisbreuer93@gmail.com>)_
+- fix lint warnings ([e5a6769](https://github.com/stacksjs/gitit/commit/e5a6769)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- fix lint warnings ([844f794](https://github.com/stacksjs/gitit/commit/844f794)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- fix lint warnings ([36606bc](https://github.com/stacksjs/gitit/commit/36606bc)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- remove .pickierignore ([5d5dab8](https://github.com/stacksjs/gitit/commit/5d5dab8)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- update better-dx to ^0.2.7 ([3ce72ca](https://github.com/stacksjs/gitit/commit/3ce72ca)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- enrich CLAUDE.md with detailed project context from README ([2674fd9](https://github.com/stacksjs/gitit/commit/2674fd9)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- update CLAUDE.md with project context and crosswind details ([d3c9ae5](https://github.com/stacksjs/gitit/commit/d3c9ae5)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- add proper claude code guidelines ([eb2b94c](https://github.com/stacksjs/gitit/commit/eb2b94c)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- ignore claude config in linter ([0ab43aa](https://github.com/stacksjs/gitit/commit/0ab43aa)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- add claude code guidelines ([9e2d53b](https://github.com/stacksjs/gitit/commit/9e2d53b)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- fix lint errors ([1d3ae58](https://github.com/stacksjs/gitit/commit/1d3ae58)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+### Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+- _glennmichael123 <gtorregosa@gmail.com>_
+
 [Compare changes](https://github.com/stacksjs/gitit/compare/v0.2.2...v0.2.3)
 
 ### 🧹 Chores
