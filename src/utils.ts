@@ -45,7 +45,7 @@ options: { headers?: Record < string, string | undefined> } = {},
 }
 
 // eslint-disable-next-line regexp/no-misleading-capturing-group
-const inputRegex = /^(?<repo > [\w.-]+\/[\w.-]+)(?<subdir > [^#]+)?(?<ref>#[\w./@-]+)?/
+const inputRegex = /^(?<repo>[\w.-]+\/[\w.-]+)(?<subdir>[^#]+)?(?<ref>#[\w./@-]+)?/
 
 export function parseGitURI(input: string): GitInfo {
   const m = input.match(inputRegex)?.groups || {}
