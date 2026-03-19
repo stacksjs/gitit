@@ -73,7 +73,7 @@
     "format:fix": "bunx --bun pickier . --format --write"
   },
   "dependencies": {
-    "nanotar": "^0.2.0"
+    "nanotar": "^0.3.0"
   },
   "devDependencies": {
     "better-dx": "^0.2.7",
