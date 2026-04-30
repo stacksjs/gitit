@@ -29,3 +29,4 @@ features:
     icon: "🔄"
     details: "Use cached templates when you're offline or prefer local versions."
 ---
+
