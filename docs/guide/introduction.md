@@ -50,4 +50,4 @@ Gitit is perfect for:
 ## Community
 
 - [GitHub Discussions](https://github.com/stacksjs/gitit/discussions)
-- [Discord](https://discord.gg/stacksjs)
+- [Discord](https://stacksjs.com/discord)
