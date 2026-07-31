@@ -73,8 +73,8 @@
     "format:fix": "bunx --bun pickier . --format --write"
   },
   "devDependencies": {
-    "better-dx": "^0.2.15",
-    "bunfig": "^0.15.6",
+    "better-dx": "^0.2.22",
+    "bunfig": "^0.15.17",
     "pathe": "^2.0.3"
   },
   "git-hooks": {
