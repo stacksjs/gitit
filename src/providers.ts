@@ -81,7 +81,7 @@ export const github: TemplateProvider = (input, options) => {
     },
     url: `${githubAPIURL.replace('api.github.com', 'github.com')}/${
       parsed.repo
-    }/tree/$ {parsed.ref}$ {parsed.subdir}`,
+    }/tree/${parsed.ref}${parsed.subdir}`,
     tar: `${githubAPIURL}/repos/${parsed.repo}/tarball/${parsed.ref}`,
   }
 }

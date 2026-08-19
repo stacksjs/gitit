@@ -1,8 +1,5 @@
 import type { TemplateInfo, TemplateProvider } from './types'
-import process from 'node:process'
-import { existsSync } from 'node:fs'
-import { readFile } from 'node:fs/promises'
-import { resolve } from 'node:path'
+import { localTemplates } from './templates/index'
 import { debug, sendFetch } from './utils'
 
 const DEFAULT_REGISTRY = 'https://raw.githubusercontent.com/unjs/giget/main/templates'
@@ -11,24 +8,15 @@ export function registryProvider(registryEndpoint: string = DEFAULT_REGISTRY, op
   return <TemplateProvider > (async (input) => {
     const start = Date.now()
 
-    // Try to load from local templates directory first
-    const localPath = resolve(process.cwd(), 'src/templates', `${input}.json`)
-    if (existsSync(localPath)) {
-      try {
-        const content = await readFile(localPath, 'utf8')
-        const info = JSON.parse(content) as TemplateInfo
-        if (!info.tar || !info.name) {
-          throw new Error(
-          `Invalid template info from ${localPath}. name or tar fields are missing!`,
-          )
-        }
-        debug(`Loaded ${input} template info from local path ${localPath} in ${Date.now() - start}ms`)
-        return info
-      }
-      catch (error) {
-        debug(`Error loading local template: ${error}`)
-        // Fall through to remote registry if local template loading fails
-      }
+    // Built-in templates are embedded in source (see ./templates/index.ts)
+    // rather than read from disk at runtime — a path resolved relative to
+    // process.cwd() or import.meta.url breaks depending on whether gitit
+    // runs from source, a bundled dist/bin/cli.js, or via `bunx`, none of
+    // which reliably locate a sibling `templates/*.json` on disk.
+    const builtin = localTemplates[input]
+    if (builtin) {
+      debug(`Loaded ${input} template info from built-in templates in ${Date.now() - start}ms`)
+      return builtin
     }
 
     // Fallback to remote registry

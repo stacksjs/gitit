@@ -1,3 +1,48 @@
+[Compare changes](https://github.com/stacksjs/gitit/compare/v0.2.5...v0.2.6)
+
+## 🐛 Bug Fixes
+
+- add setup-bun to publish-commit job ([8b7e5ee](https://github.com/stacksjs/gitit/commit/8b7e5ee)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- resolve typecheck errors ([37598a3](https://github.com/stacksjs/gitit/commit/37598a3)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+## ⚡ Performance Improvements
+
+- **build**: minify the published bundle ([ad2409b](https://github.com/stacksjs/gitit/commit/ad2409b)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## 📚 Documentation
+
+- link the community as stacksjs.com/discord ([9cfd4d3](https://github.com/stacksjs/gitit/commit/9cfd4d3)) _(by Chris <chrisbreuer93@gmail.com>)_
+
+## 🤖 Continuous Integration
+
+- drop redundant setup-bun (pantry installs bun via deps.yaml) ([482ae48](https://github.com/stacksjs/gitit/commit/482ae48)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+## 🧹 Chores
+
+- release v0.2.6 ([f0b3660](https://github.com/stacksjs/gitit/commit/f0b3660)) _(by Chris <chrisbreuer93@gmail.com>)_
+- upgrade to TypeScript 7 ([20ea707](https://github.com/stacksjs/gitit/commit/20ea707)) _(by Chris <chrisbreuer93@gmail.com>)_
+- **deps**: refresh bun.lock to pick up pickier 0.1.37 ([bf86afa](https://github.com/stacksjs/gitit/commit/bf86afa)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: refresh bun.lock to pick up pickier 0.1.35 ([560dc94](https://github.com/stacksjs/gitit/commit/560dc94)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: refresh bun.lock to pick up pickier 0.1.33 ([48aaf19](https://github.com/stacksjs/gitit/commit/48aaf19)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: refresh bun.lock to pick up @stacksjs/logsmith 0.2.3 ([bc0ee7e](https://github.com/stacksjs/gitit/commit/bc0ee7e)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: refresh bun.lock to pick up buddy-bot 0.9.20 ([e16def3](https://github.com/stacksjs/gitit/commit/e16def3)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **deps**: bump better-dx to ^0.2.15 ([aa97afd](https://github.com/stacksjs/gitit/commit/aa97afd)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- **ci**: bump actions/checkout to v6, actions/cache to v5 ([af675fa](https://github.com/stacksjs/gitit/commit/af675fa)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- refresh bun.lock to pick up bun-plugin-dtsx@0.9.18 ([5d65bb4](https://github.com/stacksjs/gitit/commit/5d65bb4)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- refresh bun.lock and apply pickier --fix ([7f56244](https://github.com/stacksjs/gitit/commit/7f56244)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- refresh bun.lock ([39b29ba](https://github.com/stacksjs/gitit/commit/39b29ba)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- lint:fix ([3a0e63f](https://github.com/stacksjs/gitit/commit/3a0e63f)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- refresh bun.lock to pick up latest pickier ([a0b31bf](https://github.com/stacksjs/gitit/commit/a0b31bf)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- fresh install to pick up dtsx 0.9.14 and bunfig 0.15.9 ([91f3773](https://github.com/stacksjs/gitit/commit/91f3773)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- fix lint errors ([9b7e67b](https://github.com/stacksjs/gitit/commit/9b7e67b)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- fresh install to pick up pickier 0.1.21 ([8243f53](https://github.com/stacksjs/gitit/commit/8243f53)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+- repo cleanup and modernization ([a062da4](https://github.com/stacksjs/gitit/commit/a062da4)) _(by glennmichael123 <gtorregosa@gmail.com>)_
+
+## Contributors
+
+- _Chris <chrisbreuer93@gmail.com>_
+- _glennmichael123 <gtorregosa@gmail.com>_
+
 [Compare changes](https://github.com/stacksjs/gitit/compare/v0.2.4...v0.2.5)
 
 ### 🧹 Chores

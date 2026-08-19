@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs'
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { gzipSync } from 'node:zlib'
-import { downloadTemplate, parseTar } from '../src'
+import { downloadTemplate, extractTar, parseTar } from '../src'
 import type { TarEntry } from '../src'
 
 // ---------------------------------------------------------------------------
@@ -16,6 +16,7 @@ function buildTarHeader(opts: {
   size: number
   typeflag: string
   prefix?: string
+  mode?: number
 }): Uint8Array {
   const header = new Uint8Array(512)
 
@@ -23,7 +24,7 @@ function buildTarHeader(opts: {
   header.set(encoder.encode(opts.name).subarray(0, 100), 0)
 
   // mode (100-107)
-  header.set(encoder.encode('0000644\0'), 100)
+  header.set(encoder.encode(`${(opts.mode ?? 0o644).toString(8).padStart(7, '0')}\0`), 100)
 
   // uid (108-115)
   header.set(encoder.encode('0001000\0'), 108)
@@ -85,9 +86,9 @@ function concatBuffers(...bufs: Uint8Array[]): Uint8Array {
   return result
 }
 
-function makeFileEntry(name: string, content: string, opts?: { prefix?: string }): Uint8Array {
+function makeFileEntry(name: string, content: string, opts?: { prefix?: string, mode?: number }): Uint8Array {
   const data = encoder.encode(content)
-  const header = buildTarHeader({ name, size: data.length, typeflag: '0', prefix: opts?.prefix })
+  const header = buildTarHeader({ name, size: data.length, typeflag: '0', prefix: opts?.prefix, mode: opts?.mode })
   return concatBuffers(header, padTo512(data))
 }
 
@@ -265,6 +266,38 @@ describe('parseTar', () => {
     // Mutate the original buffer — entry data should be unaffected
     tar[512] = 0xFF
     expect(new TextDecoder().decode(entries[0]!.data)).toBe('original')
+  })
+
+  // -- File modes --
+  it('parses the mode field for regular files', () => {
+    const tar = concatBuffers(makeFileEntry('plain.txt', 'data'), endOfArchive())
+    const entries = parseTar(tar)
+    expect(entries[0]!.mode).toBe(0o644)
+  })
+
+  it('parses executable mode (755) from the header', () => {
+    const tar = concatBuffers(makeFileEntry('run.sh', '#!/bin/sh\necho hi\n', { mode: 0o755 }), endOfArchive())
+    const entries = parseTar(tar)
+    expect(entries[0]!.mode).toBe(0o755)
+  })
+
+  it('parses mode on directory entries', () => {
+    const tar = concatBuffers(makeDirEntry('mydir/'), endOfArchive())
+    const entries = parseTar(tar)
+    expect(entries[0]!.mode).toBe(0o644)
+  })
+
+  it('leaves mode undefined when the mode field is empty', () => {
+    const header = buildTarHeader({ name: 'nomode.txt', size: 0, typeflag: '0' })
+    for (let i = 100; i < 108; i++) header[i] = 0
+    for (let i = 148; i < 156; i++) header[i] = 0x20
+    let checksum = 0
+    for (let i = 0; i < 512; i++) checksum += header[i]!
+    header.set(encoder.encode(`${checksum.toString(8).padStart(6, '0')}\0 `), 148)
+
+    const tar = concatBuffers(header, endOfArchive())
+    const entries = parseTar(tar)
+    expect(entries[0]!.mode).toBeUndefined()
   })
 
   // -- POSIX prefix for long paths --
@@ -593,6 +626,37 @@ describe('extractTar (via tar.gz files)', () => {
     expect(entries[1]!.name).toBe('project/index.js')
     expect(new TextDecoder().decode(entries[1]!.data)).toBe('console.log("hi")')
     expect(entries[2]!.name).toBe('project/package.json')
+  })
+
+  it('preserves executable file modes when extracting', async () => {
+    const tar = concatBuffers(
+      makeDirEntry('template/'),
+      makeDirEntry('template/scripts/'),
+      makeFileEntry('template/buddy', '#!/usr/bin/env bun\nconsole.log("buddy")\n', { mode: 0o755 }),
+      makeFileEntry('template/scripts/pantry-install', '#!/bin/sh\necho install\n', { mode: 0o755 }),
+      makeFileEntry('template/README.md', '# Template', { mode: 0o644 }),
+      endOfArchive(),
+    )
+    const tarPath = await createTarGz('exec-modes', tar)
+
+    const extractDir = resolve(tmpDir, 'exec-modes-out')
+    await mkdir(extractDir, { recursive: true })
+    await extractTar({ file: tarPath, cwd: extractDir })
+
+    const { stat } = await import('node:fs/promises')
+    const buddyMode = (await stat(resolve(extractDir, 'buddy'))).mode & 0o777
+    const scriptMode = (await stat(resolve(extractDir, 'scripts/pantry-install'))).mode & 0o777
+    const readmeMode = (await stat(resolve(extractDir, 'README.md'))).mode & 0o777
+
+    if (process.platform !== 'win32') {
+      expect(buddyMode & 0o111).not.toBe(0)
+      expect(scriptMode & 0o111).not.toBe(0)
+      expect(buddyMode).toBe(0o755)
+      expect(scriptMode).toBe(0o755)
+      expect(readmeMode & 0o111).toBe(0)
+    }
+
+    expect(await readFile(resolve(extractDir, 'buddy'), 'utf8')).toContain('console.log("buddy")')
   })
 
   it('parseTar handles gzip of archive with GNU long names', async () => {

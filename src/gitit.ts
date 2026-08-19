@@ -2,7 +2,7 @@ import type { DownloadTemplateOptions, DownloadTemplateResult, ExtractOptions as
 import process from 'node:process'
 import { spawn } from 'node:child_process'
 import { existsSync, readdirSync } from 'node:fs'
-import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
+import { chmod, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 import { gunzipSync } from 'node:zlib'
 import { providers } from './providers'
@@ -60,6 +60,7 @@ export interface TarEntry {
   name: string
   type: 'file' | 'directory'
   size: number
+  mode?: number
   data?: Uint8Array
 }
 
@@ -90,6 +91,8 @@ export function parseTar(data: Uint8Array): TarEntry[] {
     const prefix = decoder.decode(header.subarray(345, 500)).replace(/\0.*$/, '')
     const sizeStr = decoder.decode(header.subarray(124, 136)).replace(/\0.*$/, '').trim()
     const size = sizeStr ? Number.parseInt(sizeStr, 8) : 0
+    const modeStr = decoder.decode(header.subarray(100, 108)).replace(/\0.*$/, '').trim()
+    const mode = modeStr ? Number.parseInt(modeStr, 8) : undefined
     const typeflag = String.fromCharCode(header[156]!)
 
     offset += 512
@@ -116,11 +119,11 @@ export function parseTar(data: Uint8Array): TarEntry[] {
     longName = null
 
     if (typeflag === '5') {
-      entries.push({ name, type: 'directory', size })
+      entries.push({ name, type: 'directory', size, mode })
     }
     else if (typeflag === '0' || typeflag === '\0' || typeflag === '') {
       const fileData = size > 0 ? data.slice(offset, offset + size) : undefined
-      entries.push({ name, type: 'file', size, data: fileData })
+      entries.push({ name, type: 'file', size, mode, data: fileData })
     }
 
     offset += dataBlocks
@@ -132,7 +135,7 @@ export function parseTar(data: Uint8Array): TarEntry[] {
 /**
 * Extract a tarball (cross-platform)
 */
-async function extractTar(options: GitItExtractOptions): Promise < void> {
+export async function extractTar(options: GitItExtractOptions): Promise < void> {
   const { file, cwd, onentry } = options
 
   debug(`Extracting tarball ${file} to ${cwd}`)
@@ -204,6 +207,10 @@ async function extractTar(options: GitItExtractOptions): Promise < void> {
         // Ensure parent directory exists
         await mkdir(dirname(fullPath), { recursive: true })
         await writeFile(fullPath, entry.data)
+        // writeFile's mode option only applies on creation and is masked by the
+        // umask, so chmod explicitly to keep executable bits from the archive
+        if (entry.mode !== undefined && (entry.mode & 0o111) !== 0)
+          await chmod(fullPath, entry.mode & 0o777)
       }
       else {
         debug(`Skipping unsupported entry type: ${entry.type} for ${entry.name}`)
