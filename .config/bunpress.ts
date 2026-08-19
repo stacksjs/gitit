@@ -1,7 +1,7 @@
-import type { BunPressConfig } from 'bunpress'
+import type { BunPressConfig } from '@stacksjs/bunpress'
 
 const config: BunPressConfig = {
-  name: 'gitit',
+  title: 'gitit',
   description: 'A powerful template and project scaffolding tool for GitHub, GitLab, and Bitbucket',
   url: 'https://gitit.sh',
 
